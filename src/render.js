@@ -9,7 +9,9 @@ import {
   mapObjIndexed,
   pipe,
   reduce,
-  view
+  view,
+  find,
+  propEq,
 } from 'ramda';
 import objectAssignDeep from 'object-assign-deep';
 
@@ -108,7 +110,7 @@ export const getExamples = (body, definitions) => {
 };
 
 export const getRequestExample = (parameters, definitions) => {
-  const body = parameters.find(({'in': position}) => position === 'body');
+  const body = find(propEq('in', 'body'), parameters);
 
   if (!body) {
     return '';
