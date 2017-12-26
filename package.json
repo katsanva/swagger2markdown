@@ -1,0 +1,53 @@
+{
+  "name": "swagger2markdown",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "bin": {
+    "swagger2markdown": "dist/index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "nodemon --watch src --exec 'npm run build'",
+    "build": "babel src -d dist --source-maps"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "babel": {
+    "presets": [
+      [
+        "env",
+        {
+          "targets": {
+            "node": "0.10"
+          }
+        }
+      ]
+    ],
+    "ignore": [
+      "src/**.spec.js"
+    ]
+  },
+  "keywords": [
+    "swagger",
+    "md",
+    "markdown"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "js-yaml": "^3.10.0",
+    "object-assign-deep": "^0.3.1",
+    "ramda": "^0.25.0",
+    "yargs": "^10.0.3"
+  },
+  "engines": {
+    "node": ">=0.10"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "jest": "^22.0.4"
+  }
+}
