@@ -3,6 +3,7 @@
   "version": "1.0.1",
   "description": "",
   "main": "dist/index.js",
+  "repository": "github:katsanva/swagger2markdown",
   "bin": {
     "swagger2markdown": "dist/index.js"
   },
