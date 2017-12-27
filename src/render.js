@@ -23,7 +23,7 @@ export const getRefLink = ref => {
   return `[_${name}_](${ref})`;
 };
 
-export const getNonFormatted = (data, type = 'application/json') => `\`\`\`${type}\n${JSON.stringify(data, null, 2)}\n\`\`\``;
+export const getNonFormatted = (data, type = 'application/json') => `\`\`\`${type.replace(/ /gi, '_')}\n${JSON.stringify(data, null, 2)}\n\`\`\``;
 
 export const renderSchema = schema => {
   if (schema.$ref) {
@@ -243,13 +243,13 @@ export const renderResponseSchema = (definitions, schema) => {
 };
 
 export const renderResponses = (definitions, path) => {
-  const responses = map((code) => {
+  const responses = map((code) => {   
     const value = path.responses[code];
 
     return `_Code_: \`${code}\`\n
 ${renderResponseSchema(definitions, value.schema)}\n
 ##### Examples\n
-${map((type) => getNonFormatted(value.examples[type], type), Object.keys(value.examples)).join('\n\n')}`;
+${map((type) => `**${type}**\n\n${getNonFormatted(value.examples[type], type)}`, Object.keys(value.examples)).join('\n\n')}`;
   }, Object.keys(path.responses))
     .join('');
 
