@@ -1,6 +1,8 @@
 # swagger2markdown
 
 [![Build Status](https://travis-ci.org/katsanva/swagger2markdown.svg?branch=master)](https://travis-ci.org/katsanva/swagger2markdown)
+[![Maintainability](https://api.codeclimate.com/v1/badges/1bc2b9ae5942f4c8e3ef/maintainability)](https://codeclimate.com/github/katsanva/swagger2markdown/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/1bc2b9ae5942f4c8e3ef/test_coverage)](https://codeclimate.com/github/katsanva/swagger2markdown/test_coverage)
 
 CLI tool that allows to transform swagger definition file to markdown.
 

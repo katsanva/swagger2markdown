@@ -55,6 +55,8 @@
     "node": ">=0.10"
   },
   "jest": {
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true,
     "transform": {
       "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
     },
