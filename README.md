@@ -1,5 +1,7 @@
 # swagger2markdown
 
+[![Build Status](https://travis-ci.org/katsanva/swagger2markdown.svg?branch=master)](https://travis-ci.org/katsanva/swagger2markdown)
+
 CLI tool that allows to transform swagger definition file to markdown.
 
 The main difference from other available tools - it renders menu and detailed examples.
