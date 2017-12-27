@@ -249,7 +249,7 @@ export const renderResponses = (definitions, path) => {
     return `_Code_: \`${code}\`\n
 ${renderResponseSchema(definitions, value.schema)}\n
 ##### Examples\n
-${map((type) => getNonFormatted(value.examples[type], type), Object.keys(value.examples)).join('\n')}`;
+${map((type) => getNonFormatted(value.examples[type], type), Object.keys(value.examples)).join('\n\n')}`;
   }, Object.keys(path.responses))
     .join('');
 
