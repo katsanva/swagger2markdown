@@ -25,25 +25,33 @@ export const getRefLink = ref => {
 
 export const getNonFormatted = (data, type = 'application/json') => `\`\`\`${type.replace(/ /gi, '_')}\n${JSON.stringify(data, null, 2)}\n\`\`\``;
 
-export const renderSchema = schema => {
+export const _renderSchema = curry((getRefLink, getNonFormatted, schema) => {
   if (schema.$ref) {
     return getRefLink(schema.$ref)
   }
 
-  return getNonFormatted(schema);
-};
+  if (schema.type === 'object') {
+    return getNonFormatted(schema);
+  }
+
+  return `_${schema.type}_`;
+});
+
+export const renderSchema = _renderSchema(getRefLink, getNonFormatted);
 
 export const getRowByParameterSchema = parameter => `${parameter.in}|\`${parameter.name}\`|${renderSchema(parameter.schema)}|\n`;
 
 export const getRowByParameterType = parameter => `${parameter.in}|\`${parameter.name}\`|_${parameter.type}_|${parameter.description}\n`;
 
-export const renderParam = parameter => {
+export const _renderParam = curry((getRowByParameterSchema, getRowByParameterType, parameter) => {
   if (parameter.schema) {
     return getRowByParameterSchema(parameter);
   }
 
   return getRowByParameterType(parameter);
-};
+});
+
+export const renderParam = _renderParam(getRowByParameterSchema, getRowByParameterType);
 
 export const getSchema = (definitions, ref) => {
   const path = ref
@@ -55,7 +63,21 @@ export const getSchema = (definitions, ref) => {
   return view(lens, definitions);
 };
 
-export const resolveRefs = (definitions, schema) => {
+export const resolvePropertiesRefs = (definitions, schema) => {
+  if (schema.properties) {
+    schema.$properties = schema.properties;
+    schema.properties = map(prop => resolveRefs(definitions, prop), schema.properties)
+  }
+};
+
+export const resolveItemsRefs = (definitions, schema) => {
+  if (schema.items) {
+    schema.$items = schema.items;
+    schema.items = resolveRefs(definitions, schema.items)
+  }
+};
+
+export const resolveRefs = curry((definitions, schema) => {
   if (schema.$ref) {
     const refSchema = getSchema(definitions, schema.$ref);
 
@@ -68,18 +90,11 @@ export const resolveRefs = (definitions, schema) => {
     }, {}, schema.allOf)
   }
 
-  if (schema.properties) {
-    schema.$properties = schema.properties;
-    schema.properties = map(prop => resolveRefs(definitions, prop), schema.properties)
-  }
-
-  if (schema.items) {
-    schema.$items = schema.items;
-    schema.items = resolveRefs(definitions, schema.items)
-  }
+  resolvePropertiesRefs(definitions, schema);
+  resolveItemsRefs(definitions, schema);
 
   return schema;
-};
+});
 
 export const getExamples = (body, definitions) => {
   if (body.schema) {
@@ -97,7 +112,8 @@ export const getExamples = (body, definitions) => {
           return acc;
         }
 
-        return objectAssignDeep(acc, {[value]: resolvedBody.properties[value].example || ''})
+        return objectAssignDeep(acc, {
+          [value]: resolvedBody.properties[value].example || ''})
       }, {}, Object.keys(resolvedBody.properties));
 
       return {
@@ -243,7 +259,7 @@ export const renderResponseSchema = (definitions, schema) => {
 };
 
 export const renderResponses = (definitions, path) => {
-  const responses = map((code) => {   
+  const responses = map((code) => {
     const value = path.responses[code];
 
     return `_Code_: \`${code}\`\n
@@ -310,9 +326,8 @@ export function renderMenu({paths, definitions}) {
   }, Object.keys(paths[route])), Object.keys(paths));
 
   const routesPart = map(key => {
-      return `${getMenuLink(key)}\n\n${grouped[key].join('\n')}`
-    }, Object.keys(grouped)
-  ).join('\n\n');
+    return `${getMenuLink(key)}\n\n${grouped[key].join('\n')}`
+  }, Object.keys(grouped)).join('\n\n');
 
   const definitionsPart = map(name => {
     return `* [${name}](#/definitions/${name})`
