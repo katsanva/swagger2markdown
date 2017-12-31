@@ -9,17 +9,26 @@
   },
   "scripts": {
     "test": "jest src",
-    "watch:test": "npm run test -- --watch", 
+    "watch:test": "npm run test -- --watch",
     "coverage": "npm run test -- --coverage",
     "watch:coverage": "npm run coverage -- --watch",
     "watch:build": "nodemon --watch src --exec 'npm run build'",
-    "build": "NODE_ENV=build babel src -d dist --source-maps",
-    "prepublish": "npm run build"
+    "build": "NODE_ENV=build babel src -d dist --source-maps inline",
+    "prepublish": "npm run build",
+    "get:examples": "curl https://api.gettyimages.com/swagger/docs/3 > examples/gettyimages.json && curl http://petstore.swagger.io/v2/swagger.json > examples/petstore.json",
+    "prebuild:examples": "npm run build && npm run get:examples",
+    "build:examples": "npm run transform:examples",
+    "pretransform:examples": "npm run build",
+    "transform:examples": "babel-node src/index.js -s examples/gettyimages.json -m examples/gettyimages.md && node dist/index.js -s examples/petstore.json -m examples/petstore.md",
+    "preversion": "npm run transform:examples"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
   "babel": {
+    "plugins": [
+      "transform-object-rest-spread"
+    ],
     "presets": [
       [
         "env",
@@ -69,6 +78,7 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-jest": "^22.0.4",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "jest": "^22.0.4"
   }

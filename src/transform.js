@@ -1,6 +1,6 @@
 'use strict';
 
-export default function transform(yaml, fs, render, swagger, markdown) {
+export default function transform(yaml, fs, render, swagger, markdown, config) {
     try {
         const swaggerDocument = yaml.safeLoad(swagger);
 
@@ -8,7 +8,7 @@ export default function transform(yaml, fs, render, swagger, markdown) {
             throw Error('Only swagger 2.0 is currently supported');
         }
 
-        const md = render(swaggerDocument);
+        const md = render(swaggerDocument, config);
 
         fs.writeFileSync(markdown, md);
     } catch (e) {
