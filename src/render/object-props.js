@@ -2,6 +2,7 @@
 
 import {
   map,
+  curry,
 } from 'ramda';
 
 import {
@@ -20,12 +21,19 @@ export const getObjectRefRow = (p, ref) => tr(
   ''
 );
 
-export const _renderObjectProps = (properties = {}, $properties = {}) => map(property => {
-  const isArray = properties[property].type === 'array';
-  const arrayItemsAreRef = properties[property].$items && properties[property].$items.$ref;
+export const renderProp = curry((properties, $properties, property) => {
+  const value = properties[property];
+  const {
+    type,
+    description,
+    $items,
+  } = properties[property];
+
+  const isArray = value.type === 'array';
+  const arrayItemsAreRef = $items && $items.$ref;
 
   if (isArray && arrayItemsAreRef) {
-    return getObjectRefRow(property, properties[property].$items.$ref);
+    return getObjectRefRow(property, $items.$ref);
   }
 
   const isRef = $properties[property] && $properties[property].$ref;
@@ -34,15 +42,17 @@ export const _renderObjectProps = (properties = {}, $properties = {}) => map(pro
     return tr(
       pre(property),
       link(isRef),
-      escape(properties[property].description)
+      escape(description)
     );
   }
 
   return tr(
     pre(property),
-    italics(properties[property].type),
-    escape(properties[property].description)
+    italics(type),
+    escape(description)
   );
-}, Object.keys(properties));
+});
+
+export const _renderObjectProps = (properties = {}, $properties = {}) => map(renderProp(properties, $properties), Object.keys(properties));
 
 export default _renderObjectProps;

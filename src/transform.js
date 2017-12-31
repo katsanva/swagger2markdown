@@ -1,6 +1,6 @@
 'use strict';
 
-export default function transform(yaml, fs, render, swagger, markdown, config) {
+export default function transform({yaml, fs, render}, swagger, markdown, config) {
     try {
         const swaggerDocument = yaml.safeLoad(swagger);
 

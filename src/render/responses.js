@@ -61,7 +61,7 @@ export const renderResponseSchema = (definitions, schema = {}) => {
     ];
   }
 
-  return ``;
+  return [];
 };
 
 export const renderResponseExamples = (examples = {}) => reduce((acc, type) => [
@@ -95,4 +95,4 @@ export const renderResponses = (definitions, path) => {
   }, [], Object.keys(path.responses));
 };
 
-export default  renderResponses;
+export default renderResponses;

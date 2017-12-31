@@ -43,4 +43,4 @@ const config = {
   prependHeader
 };
 
-transform(yaml, fs, render, swagger, markdown, config);
+transform({yaml, fs, render}, swagger, markdown, config);
