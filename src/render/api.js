@@ -9,13 +9,11 @@ import {
 import {heading} from "./md";
 import renderEndpoint from "./endpoint";
 
-
-
 export const renderWithTags = curry((swaggerDocument, groupedByTags, acc, tagName) => {
   const tagObj = find(a => a.name === tagName, swaggerDocument.tags || []);
   const tagView = [];
 
-  tagView.push(heading(2, tagName));
+  tagView.push(heading(tagName), 2);
 
   if (tagObj && tagObj.description) {
     tagView.push(`${tagObj.description}`)

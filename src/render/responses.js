@@ -89,7 +89,7 @@ export const renderResponses = (definitions, path) => {
       ...acc,
       `${italics(`Code`)} ${pre(responseCode)}: ${value.description}`,
       ...renderResponseSchema(definitions, value.schema),
-      heading(5, `Examples`),
+      heading(`Examples`, 5),
       ...renderResponseExamples(value.examples)
     ];
   }, [], Object.keys(path.responses));

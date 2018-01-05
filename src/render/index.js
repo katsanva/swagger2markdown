@@ -54,7 +54,7 @@ export const getBase = (document, {prependHeader}) => {
     }
   } = document;
   const defaultBase = [
-    heading(1, title),
+    heading(title, 1),
     description,
   ];
 
@@ -85,10 +85,10 @@ export default function renderDocument(document, config) {
 
   return base
     .concat(
-      heading(2, `Content`),
+      heading(`Content`, 2),
       renderMenu(document, groupedByTags),
       renderAPI(document, groupedByTags),
-      heading(2, `Definitions`),
+      heading(`Definitions`, 2),
       renderDefinitions(document)
     )
     .join('\n\n');

@@ -2,7 +2,7 @@
 
 export const getFilledArray = (length, content) => Array(length).fill(content);
 
-export const pre = i => `\`${i}\``;
+export const pre = string => `\`${string}\``;
 
 export const link = (name, link) => `[${name}](${(link || name)})`;
 
@@ -29,7 +29,7 @@ export const code = (data, type = 'application/json') => [
 
 export const li = string => `* ${string}`;
 
-export const heading = (level = 1, string) => {
+export const heading = (string, level = 1) => {
   const header = getFilledArray(level, '#').join('');
 
   return `${header} ${string}`

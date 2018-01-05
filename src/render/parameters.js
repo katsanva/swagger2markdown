@@ -14,34 +14,38 @@ import resolveRefs from "./resolve-refs";
 import renderParameter from "./parameter";
 import getRefName from "./get-ref-name";
 
+export const fillExampleByBodyField = curry((body, acc, property) => {
+  const example = body.properties[property].example;
+
+  if (!example) {
+    return acc;
+  }
+
+  return objectAssignDeep(acc, {
+    [property]: example
+  })
+});
+
 export const getExamples = (body, definitions) => {
-  if (body.schema) {
-    const resolvedBody = resolveRefs(definitions, body.schema);
+  if (!body.schema) {
+    return {};
+  }
 
-    if (resolvedBody.example) {
-      return {
-        'application/json': resolvedBody.example
-      }
-    }
+  const resolvedBody = resolveRefs(definitions, body.schema);
 
-    if (resolvedBody.properties) {
-      const res = reduce((acc, value) => {
-        if (!resolvedBody.properties[value].example) {
-          return acc;
-        }
-
-        return objectAssignDeep(acc, {
-          [value]: resolvedBody.properties[value].example || ''
-        })
-      }, {}, Object.keys(resolvedBody.properties));
-
-      return {
-        'application/json': res
-      }
+  if (resolvedBody.example) {
+    return {
+      'application/json': resolvedBody.example
     }
   }
 
-  return {};
+  if (resolvedBody.properties) {
+    const res = reduce(fillExampleByBodyField(resolvedBody), {}, Object.keys(resolvedBody.properties));
+
+    return {
+      'application/json': res
+    }
+  }
 };
 
 export const getRequestExample = (parameters, definitions) => {
@@ -53,7 +57,7 @@ export const getRequestExample = (parameters, definitions) => {
 
   const examples = getExamples(body, definitions);
 
-  if (!examples) {
+  if (!examples['application/json']) {
     return [];
   }
 
@@ -64,7 +68,7 @@ export const getRequestExample = (parameters, definitions) => {
   }, Object.keys(examples))
 };
 
-export const renderAnyParameter = curry((parameters, parameter) => {
+export const renderAnyParameter = curry((renderParameter, parameters, parameter) => {
   if (parameter.$ref) {
     const name = getRefName(parameter.$ref);
 
@@ -81,7 +85,7 @@ export const getParametersTable = (parameters, path) => {
 
   return table(
     th(`Position`, `Name`, `Type`, `Description`),
-    map(renderAnyParameter(parameters), ownParameters),
+    map(renderAnyParameter(renderParameter, parameters), ownParameters),
   )
 };
 
@@ -91,19 +95,19 @@ export const renderParameters = (path, parameters, definitions) => {
   }
 
   const parametersBlock = [
-    heading(5, 'Parameters'),
+    heading('Parameters', 5),
     getParametersTable(parameters, path)
   ];
 
   const requestExample = getRequestExample(path.parameters, definitions);
 
-  if (!requestExample) {
+  if (!requestExample.length) {
     return parametersBlock;
   }
 
   return parametersBlock
     .concat(
-      heading(5, 'Example'),
+      heading('Example', 5),
       requestExample,
     );
 };

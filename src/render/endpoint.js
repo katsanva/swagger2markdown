@@ -35,15 +35,15 @@ export const renderEndpoint = curry((swaggerDocument, acc, endpoint) => {
 
   const uri = getURI(swaggerDocument, endpoint.path);
   const endpointSummary = [
-    heading(3, endpoint.summary),
+    heading(endpoint.summary, 3),
     `    ${endpoint.method.toUpperCase()} ${uri}`,
   ];
 
   const endpointView = endpointSummary
     .concat(
-      heading(4, `Request`),
+      heading(`Request`, 4),
       renderParameters(endpoint, parameters, definitions),
-      heading(4, `Responses`),
+      heading(`Responses`, 4),
       renderResponses(definitions, endpoint)
     );
 
