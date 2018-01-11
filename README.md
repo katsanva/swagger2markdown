@@ -17,11 +17,10 @@ npm i -g swagger2markdown
 ## Usage
 
 ```sh
-Usage: swagger2markdown -swagger [string] -markdown [string]
+Usage: swagger2markdown -swagger [string] -markdown [string] -p [boolean]
 
 Options:
-  --help          Show help                                            [boolean]
-  --version       Show version number                                  [boolean]
-  --swagger, -s   Path to swagger file                                [required]
-  --markdown, -m  Path to output markdown file                        [required]
+  --swagger, -s        Path to swagger file                           [required]
+  --markdown, -m       Path to output markdown file                   [required]
+  --prependHeader, -p  Should produce raw markdown or add render-related header                                                  [boolean] [default: true]
 ```
