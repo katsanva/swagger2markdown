@@ -42,13 +42,14 @@
     "env": {
       "build": {
         "ignore": [
-          "src/**.spec.js"
+          "src/**/*.spec.js"
         ]
       }
     }
   },
   "keywords": [
     "swagger",
+    "swagger2",
     "md",
     "markdown"
   ],
