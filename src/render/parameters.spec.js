@@ -44,11 +44,11 @@ test('getParametersTable', () => {
     ]
   };
 
-  const exdpected = 'Position|Name|Type|Description\n---|---|---|---\nbla|`foo`|_bleep_|blop';
+  const expected = 'Position|Name|Type|Description\n---|---|---|---\nbla|`foo`|_bleep_|blop';
 
   const result = getParametersTable(parameters, path);
 
-  expect(result).toBe(exdpected);
+  expect(result).toBe(expected);
 });
 
 test('renderParameters: no parameters', () => {
@@ -192,17 +192,17 @@ test('getExamples: take example from body schema properties', () => {
 });
 
 test('getRequestExample: no body parameter', () => {
-  const parmameters = [];
+  const parameters = [];
   const definitions = {};
   const expected = [];
 
-  const result = getRequestExample(parmameters, definitions);
+  const result = getRequestExample(parameters, definitions);
 
   expect(result).toEqual(expected);
 });
 
 test('getRequestExample: no examples', () => {
-  const parmameters = [
+  const parameters = [
     {
       'in': 'body'
     }
@@ -210,7 +210,7 @@ test('getRequestExample: no examples', () => {
   const definitions = {};
   const expected = [];
 
-  const result = getRequestExample(parmameters, definitions);
+  const result = getRequestExample(parameters, definitions);
 
   expect(result).toEqual(expected);
 });
