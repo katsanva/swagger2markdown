@@ -208,7 +208,7 @@ Tag: [Videos](#videos)
 |header|`Accept-Language`|_string_|Provide a header to specify the language of result values.|
 |header|`Authorization`|_string_|Provide access token in the format of 'Bearer {token}'.|
 |query|`artist_name`|_string_|Name of artist for desired images|
-|query|`fields`|[ ]|Comma separated list of fields. Allows restricting which fields are returned. If no fields are selected, the summary_set of fields are returned.|
+|query|`fields`|[&nbsp;string&nbsp;]|Comma separated list of fields. Allows restricting which fields are returned. If no fields are selected, the summary_set of fields are returned.|
 |query|`page`|_integer_|Identifies page to return. Default page is 1.|
 |query|`page_size`|_integer_|Specifies page size. Default page_size is 10, maximum page_size is 100.|
 
@@ -236,7 +236,7 @@ _Code_ `401`: Unauthorized
 |header|`Accept-Language`|_string_|Provide a header to specify the language of result values.|
 |header|`Authorization`|_string_|Provide access token in the format of 'Bearer {token}'.|
 |query|`artist_name`|_string_|Name of artist for desired images|
-|query|`fields`|[ ]|Comma separated list of fields. Allows restricting which fields are returned. If no fields are selected, the summary_set of fields are returned.|
+|query|`fields`|[&nbsp;string&nbsp;]|Comma separated list of fields. Allows restricting which fields are returned. If no fields are selected, the summary_set of fields are returned.|
 |query|`page`|_integer_|Identifies page to return. Default page is 1.|
 |query|`page_size`|_integer_|Specifies page size. Default page_size is 10, maximum page_size is 100.|
 
@@ -542,7 +542,7 @@ _Code_ `404`: BoardNotFound
 |header|`Authorization`|_string_|Provide access token in the format of 'Bearer {token}'.|
 |header|`Accept-Language`|_string_|Provide a header to specify the language of result values.|
 |path|`board_id`|_string_||
-|query|`asset_ids`|[ ]|List the assets to be removed from the board.|
+|query|`asset_ids`|[&nbsp;string&nbsp;]|List the assets to be removed from the board.|
 
 #### Responses
 
@@ -877,8 +877,8 @@ _Code_ `404`: VideoNotFound
 |header|`Api-Key`|_string_|Provide your API key.|
 |header|`Accept-Language`|_string_|Provide a header to specify the language of result values.|
 |header|`Authorization`|_string_|Provide access token in the format of 'Bearer {token}'.|
-|query|`fields`|[ ]|A comma separated list of fields to return in the response.|
-|query|`ids`|[ ]|A comma separated list of event ids.|
+|query|`fields`|[&nbsp;string&nbsp;]|A comma separated list of fields to return in the response.|
+|query|`ids`|[&nbsp;integer&nbsp;]|A comma separated list of event ids.|
 
 #### Responses
 
@@ -906,7 +906,7 @@ _Code_ `404`: EventNotFound
 |header|`Accept-Language`|_string_|Provide a header to specify the language of result values.|
 |header|`Authorization`|_string_|Provide access token in the format of 'Bearer {token}'.|
 |path|`id`|_integer_|An event id.|
-|query|`fields`|[ ]|A comma separated list of fields to return in the response.|
+|query|`fields`|[&nbsp;string&nbsp;]|A comma separated list of fields to return in the response.|
 
 #### Responses
 
@@ -935,8 +935,8 @@ _Code_ `404`: EventNotFound
 |header|`Api-Key`|_string_|Provide your API key.|
 |header|`Accept-Language`|_string_|Provide a header to specify the language of result values.|
 |header|`Authorization`|_string_|Provide access token in the format of 'Bearer {token}'.|
-|query|`ids`|[ ]|Specifies one or more image ids to return. Use comma delimiter when requesting multiple ids.|
-|query|`fields`|[ ]|Specifies fields to return. Defaults to 'summary_set'.|
+|query|`ids`|[&nbsp;string&nbsp;]|Specifies one or more image ids to return. Use comma delimiter when requesting multiple ids.|
+|query|`fields`|[&nbsp;string&nbsp;]|Specifies fields to return. Defaults to 'summary_set'.|
 
 #### Responses
 
@@ -966,7 +966,7 @@ _Code_ `404`: ImageNotFound
 |header|`Accept-Language`|_string_|Provide a header to specify the language of result values.|
 |header|`Authorization`|_string_|Provide access token in the format of 'Bearer {token}'.|
 |path|`id`|_string_|An image id. For more than one image please use the /v3/images endpoint.|
-|query|`fields`|[ ]|Specifies fields to return. Defaults to 'summary_set'.|
+|query|`fields`|[&nbsp;string&nbsp;]|Specifies fields to return. Defaults to 'summary_set'.|
 
 #### Responses
 
@@ -996,7 +996,7 @@ _Code_ `404`: ImageNotFound
 |header|`Accept-Language`|_string_|Provide a header to specify the language of result values.|
 |header|`Authorization`|_string_|Provide access token in the format of 'Bearer {token}'.|
 |path|`id`|_string_|Identifies an existing image|
-|query|`fields`|[ ]|Specifies fields to return. Defaults to 'summary_set'.|
+|query|`fields`|[&nbsp;string&nbsp;]|Specifies fields to return. Defaults to 'summary_set'.|
 |query|`page`|_integer_|Identifies page to return. Default is 1.|
 |query|`page_size`|_integer_|Specifies page size. Default is 30, maximum page_size is 100.|
 
@@ -1029,7 +1029,7 @@ _Code_ `404`: ImageNotFound
 |header|`Api-Key`|_string_|Provide your API key.|
 |header|`Authorization`|_string_|Provide access token in the format of 'Bearer {token}'.|
 |header|`Accept-Language`|_string_|Provide a header to specify the language of result values.|
-|query|`fields`|[ ]|Comma separated list of fields. Allows product download requirements to be returned.|
+|query|`fields`|[&nbsp;string&nbsp;]|Comma separated list of fields. Allows product download requirements to be returned.|
 
 #### Responses
 
@@ -1117,7 +1117,7 @@ _Code_ `401`: Unauthorized
 |query|`date_from`|_string_|Filters to events that start on or after this date. Use ISO 8601 format (e.g., 1999-12-31).|
 |query|`date_to`|_string_|Filters to events that start on or before this date. Use ISO 8601 format (e.g., 1999-12-31).|
 |query|`editorial_segment`|_string_|Filters to events with a matching editorial segment.|
-|query|`fields`|[ ]|Specifies fields to return. Default set is 'id','name','start_date'.|
+|query|`fields`|[&nbsp;string&nbsp;]|Specifies fields to return. Default set is 'id','name','start_date'.|
 |query|`page`|_integer_|Request results starting at a page number (default is 1, maximum is 50).|
 |query|`page_size`|_integer_|Request number of images to return in each page.|
 |query|`phrase`|_string_|Filters to events related to this phrase|
@@ -1147,31 +1147,31 @@ _Code_ `403`: UnauthorizedDisplaySize
 |header|`Api-Key`|_string_|Provide your API key.|
 |header|`Accept-Language`|_string_|Provide a header to specify the language of result values.|
 |header|`Authorization`|_string_|Provide access token in the format of 'Bearer {token}'.|
-|query|`age_of_people`|[ ]|Filter based on the age of individuals in an image.|
+|query|`age_of_people`|[&nbsp;string&nbsp;]|Filter based on the age of individuals in an image.|
 |query|`artists`|_string_|Search for images by specific artists (free-text, comma-separated list of artists).|
-|query|`collection_codes`|[ ]|Filter by collection codes (comma-separated list). Include or exclude based on collections_filter_type.|
+|query|`collection_codes`|[&nbsp;string&nbsp;]|Filter by collection codes (comma-separated list). Include or exclude based on collections_filter_type.|
 |query|`collections_filter_type`|_string_|Provides searching based on specified collection(s).|
 |query|`color`|_string_|Filter based on predominant color in an image. Use 6 character hexidecimal format (e.g., #002244). Note: when specified, results will not contain editorial images.|
-|query|`compositions`|[ ]|Filter based on image composition.|
+|query|`compositions`|[&nbsp;string&nbsp;]|Filter based on image composition.|
 |query|`embed_content_only`|_boolean_|Restrict search results to embeddable images. The default is false.|
-|query|`ethnicity`|[ ]|Filter search results based on the ethnicity of individuals in an image.|
-|query|`event_ids`|[ ]|Filter based on specific events|
+|query|`ethnicity`|[&nbsp;string&nbsp;]|Filter search results based on the ethnicity of individuals in an image.|
+|query|`event_ids`|[&nbsp;integer&nbsp;]|Filter based on specific events|
 |query|`exclude_nudity`|_boolean_|Excludes images containing nudity. The default is false.|
-|query|`fields`|[ ]|Specifies fields to return. Defaults to 'summary_set'.|
-|query|`file_types`|[ ]|Return only images having a specific file type.|
-|query|`graphical_styles`|[ ]|Filter based on graphical style of the image.|
-|query|`keyword_ids`|[ ]|Return only images tagged with specific keyword(s). Specify using a comma-separated list of keyword Ids. If keyword Ids and phrase are both specified, only those images matching the query phrase which also contain the requested keyword(s) are returned.|
-|query|`license_models`|[ ]|Specifies the image licensing model(s).|
+|query|`fields`|[&nbsp;string&nbsp;]|Specifies fields to return. Defaults to 'summary_set'.|
+|query|`file_types`|[&nbsp;string&nbsp;]|Return only images having a specific file type.|
+|query|`graphical_styles`|[&nbsp;string&nbsp;]|Filter based on graphical style of the image.|
+|query|`keyword_ids`|[&nbsp;integer&nbsp;]|Return only images tagged with specific keyword(s). Specify using a comma-separated list of keyword Ids. If keyword Ids and phrase are both specified, only those images matching the query phrase which also contain the requested keyword(s) are returned.|
+|query|`license_models`|[&nbsp;string&nbsp;]|Specifies the image licensing model(s).|
 |query|`minimum_size`|_string_|Filter based on minimum size requested.|
-|query|`number_of_people`|[ ]|Filter based on the number of people in the image.|
-|query|`orientations`|[ ]|Return only images with selected aspect ratios.|
+|query|`number_of_people`|[&nbsp;string&nbsp;]|Filter based on the number of people in the image.|
+|query|`orientations`|[&nbsp;string&nbsp;]|Return only images with selected aspect ratios.|
 |query|`page`|_integer_|Request results starting at a page number (default is 1).|
 |query|`page_size`|_integer_|Request number of images to return in each page.|
 |query|`phrase`|_string_|Search images using a search phrase.|
 |query|`prestige_content_only`|_boolean_|Restrict search results to prestige images. The default is false.|
-|query|`product_types`|[ ]|Filter images to those having product types from the selected list.|
+|query|`product_types`|[&nbsp;string&nbsp;]|Filter images to those having product types from the selected list.|
 |query|`sort_order`|_string_|Select sort order of results.|
-|query|`specific_people`|[ ]|Return only images associated with specific people (using a comma-delimited list).|
+|query|`specific_people`|[&nbsp;string&nbsp;]|Return only images associated with specific people (using a comma-delimited list).|
 
 #### Responses
 
@@ -1198,28 +1198,28 @@ _Code_ `403`: UnauthorizedDisplaySize
 |header|`Api-Key`|_string_|Provide your API key.|
 |header|`Accept-Language`|_string_|Provide a header to specify the language of result values.|
 |header|`Authorization`|_string_|Provide access token in the format of 'Bearer {token}'.|
-|query|`age_of_people`|[ ]|Filter based on the age of individuals in an image.|
+|query|`age_of_people`|[&nbsp;string&nbsp;]|Filter based on the age of individuals in an image.|
 |query|`artists`|_string_|Search for images by specific artists (free-text, comma-separated list of artists).|
-|query|`collection_codes`|[ ]|Filter by collection codes (comma-separated list). Include or exclude based on collections_filter_type.|
+|query|`collection_codes`|[&nbsp;string&nbsp;]|Filter by collection codes (comma-separated list). Include or exclude based on collections_filter_type.|
 |query|`collections_filter_type`|_string_|Use to include or exclude collections from search.|
 |query|`color`|_string_|Filter based on predominant color in an image. Use 6 character hexidecimal format (e.g., #002244).|
-|query|`compositions`|[ ]|Filter based on image composition.|
+|query|`compositions`|[&nbsp;string&nbsp;]|Filter based on image composition.|
 |query|`embed_content_only`|_boolean_|Restrict search results to embeddable images. The default is false.|
-|query|`ethnicity`|[ ]|Filter search results based on the ethnicity of individuals in an image.|
+|query|`ethnicity`|[&nbsp;string&nbsp;]|Filter search results based on the ethnicity of individuals in an image.|
 |query|`exclude_nudity`|_boolean_|Excludes images containing nudity. The default is false.|
-|query|`fields`|[ ]|Specifies fields to return. Defaults to 'summary_set'.|
-|query|`file_types`|[ ]|Return only images having a specific file type.|
-|query|`graphical_styles`|[ ]|Filter based on graphical style of the image.|
-|query|`keyword_ids`|[ ]|Return only images tagged with specific keyword(s). Specify using a comma-separated list of keyword Ids. If keyword Ids and phrase are both specified, only those images matching the query phrase which also contain the requested keyword(s) are returned.|
-|query|`license_models`|[ ]|Specifies the image licensing model(s).|
+|query|`fields`|[&nbsp;string&nbsp;]|Specifies fields to return. Defaults to 'summary_set'.|
+|query|`file_types`|[&nbsp;string&nbsp;]|Return only images having a specific file type.|
+|query|`graphical_styles`|[&nbsp;string&nbsp;]|Filter based on graphical style of the image.|
+|query|`keyword_ids`|[&nbsp;integer&nbsp;]|Return only images tagged with specific keyword(s). Specify using a comma-separated list of keyword Ids. If keyword Ids and phrase are both specified, only those images matching the query phrase which also contain the requested keyword(s) are returned.|
+|query|`license_models`|[&nbsp;string&nbsp;]|Specifies the image licensing model(s).|
 |query|`minimum_size`|_string_|Filter based on minimum size requested.|
-|query|`number_of_people`|[ ]|Filter based on the number of people in the image.|
-|query|`orientations`|[ ]|Return only images with selected aspect ratios.|
+|query|`number_of_people`|[&nbsp;string&nbsp;]|Filter based on the number of people in the image.|
+|query|`orientations`|[&nbsp;string&nbsp;]|Return only images with selected aspect ratios.|
 |query|`page`|_integer_|Request results starting at a page number (default is 1).|
 |query|`page_size`|_integer_|Request number of images to return in each page.|
 |query|`phrase`|_string_|Search images using a search phrase.|
 |query|`prestige_content_only`|_boolean_|Restrict search results to prestige images. The default is false.|
-|query|`product_types`|[ ]|Filter images to those having product types from the selected list.|
+|query|`product_types`|[&nbsp;string&nbsp;]|Filter images to those having product types from the selected list.|
 |query|`sort_order`|_string_|Select sort order of results.|
 
 #### Responses
@@ -1247,32 +1247,32 @@ _Code_ `403`: UnauthorizedDisplaySize
 |header|`Api-Key`|_string_|Provide your API key.|
 |header|`Accept-Language`|_string_|Provide a header to specify the language of result values.|
 |header|`Authorization`|_string_|Provide access token in the format of 'Bearer {token}'.|
-|query|`age_of_people`|[ ]|Filter based on the age of individuals in an image.|
+|query|`age_of_people`|[&nbsp;string&nbsp;]|Filter based on the age of individuals in an image.|
 |query|`artists`|_string_|Search for images by specific artists (free-text, comma-separated list of artists).|
-|query|`collection_codes`|[ ]|Filter by collections (comma-separated list of collection codes). Include or exclude based on collections_filter_type.|
+|query|`collection_codes`|[&nbsp;string&nbsp;]|Filter by collections (comma-separated list of collection codes). Include or exclude based on collections_filter_type.|
 |query|`collections_filter_type`|_string_|Use to include or exclude collections from search.|
-|query|`compositions`|[ ]|Filter based on image composition.|
-|query|`editorial_segments`|[ ]|Return only events with a matching editorial segment.|
+|query|`compositions`|[&nbsp;string&nbsp;]|Filter based on image composition.|
+|query|`editorial_segments`|[&nbsp;string&nbsp;]|Return only events with a matching editorial segment.|
 |query|`embed_content_only`|_boolean_|Restrict search results to embeddable images. The default is false.|
 |query|`end_date`|_string_|Return only images that are created on or before this date. Use ISO 8601 format (e.g., 1999-12-31).|
-|query|`entity_uris`|[ ]|specify linked data entity uri.|
-|query|`ethnicity`|[ ]|Filter search results based on the ethnicity of individuals in an image.|
-|query|`event_ids`|[ ]|Filter based on specific events|
+|query|`entity_uris`|[&nbsp;string&nbsp;]|specify linked data entity uri.|
+|query|`ethnicity`|[&nbsp;string&nbsp;]|Filter search results based on the ethnicity of individuals in an image.|
+|query|`event_ids`|[&nbsp;integer&nbsp;]|Filter based on specific events|
 |query|`exclude_nudity`|_boolean_|Excludes images containing nudity. The default is false.|
-|query|`fields`|[ ]|Specifies fields to return. Defaults to 'summary_set'.|
-|query|`file_types`|[ ]|Return only images having a specific file type.|
-|query|`graphical_styles`|[ ]|Filter based on graphical style of the image.|
-|query|`keyword_ids`|[ ]|Return only images tagged with specific keyword(s). Specify using a comma-separated list of keyword Ids. If keyword Ids and phrase are both specified, only those images matching the query phrase which also contain the requested keyword(s) are returned.|
+|query|`fields`|[&nbsp;string&nbsp;]|Specifies fields to return. Defaults to 'summary_set'.|
+|query|`file_types`|[&nbsp;string&nbsp;]|Return only images having a specific file type.|
+|query|`graphical_styles`|[&nbsp;string&nbsp;]|Filter based on graphical style of the image.|
+|query|`keyword_ids`|[&nbsp;integer&nbsp;]|Return only images tagged with specific keyword(s). Specify using a comma-separated list of keyword Ids. If keyword Ids and phrase are both specified, only those images matching the query phrase which also contain the requested keyword(s) are returned.|
 |query|`minimum_quality_rank`|_integer_|Filter search results based on minimum quality ranking. Possible values 1, 2, 3 with 1 being best.|
 |query|`minimum_size`|_string_|Filter based on minimum size requested.|
-|query|`number_of_people`|[ ]|Filter based on the number of people in the image.|
-|query|`orientations`|[ ]|Return only images with selected aspect ratios.|
+|query|`number_of_people`|[&nbsp;string&nbsp;]|Filter based on the number of people in the image.|
+|query|`orientations`|[&nbsp;string&nbsp;]|Return only images with selected aspect ratios.|
 |query|`page`|_integer_|Request results starting at a page number (default is 1).|
 |query|`page_size`|_integer_|Request number of images to return in each page.|
 |query|`phrase`|_string_|Search images using a search phrase.|
-|query|`product_types`|[ ]|Filter images to those having product types from the selected list.|
+|query|`product_types`|[&nbsp;string&nbsp;]|Filter images to those having product types from the selected list.|
 |query|`sort_order`|_string_|Select sort order of results.|
-|query|`specific_people`|[ ]|Return only images associated with specific people (using a comma-delimited list).|
+|query|`specific_people`|[&nbsp;string&nbsp;]|Return only images associated with specific people (using a comma-delimited list).|
 |query|`start_date`|_string_|Return only images that are created on or after this date. Use ISO 8601 format (e.g., 1999-12-31).|
 
 #### Responses
@@ -1300,22 +1300,22 @@ _Code_ `403`: UnauthorizedDisplaySize
 |header|`Api-Key`|_string_|Provide your API key.|
 |header|`Accept-Language`|_string_|Provide a header to specify the language of result values.|
 |header|`Authorization`|_string_|Provide access token in the format of 'Bearer {token}'.|
-|query|`age_of_people`|[ ]|Provides filtering according to the age of individuals in a video.|
-|query|`collection_codes`|[ ]|Provides filtering by collection code.|
+|query|`age_of_people`|[&nbsp;string&nbsp;]|Provides filtering according to the age of individuals in a video.|
+|query|`collection_codes`|[&nbsp;string&nbsp;]|Provides filtering by collection code.|
 |query|`collections_filter_type`|_string_|Provides searching based on specified collection(s).|
-|query|`editorial_video_types`|[ ]|Allows filtering by types of video.|
+|query|`editorial_video_types`|[&nbsp;string&nbsp;]|Allows filtering by types of video.|
 |query|`exclude_nudity`|_boolean_|Excludes images containing nudity. The default is false.|
-|query|`fields`|[ ]|Specifies fields to return. Defaults to 'summary_set'.|
+|query|`fields`|[&nbsp;string&nbsp;]|Specifies fields to return. Defaults to 'summary_set'.|
 |query|`format_available`|_string_|Filters according to the digital video format available on a film asset.|
-|query|`frame_rates`|[ ]|Provides filtering by video frame rate (frames/second).|
-|query|`keyword_ids`|[ ]|Return only images tagged with specific keyword(s). Specify using a comma-separated list of keyword Ids. If keyword Ids and phrase are both specified, only those images matching the query phrase which also contain the requested keyword(s) are returned.|
-|query|`license_models`|[ ]|Specifies the video licensing model(s).|
+|query|`frame_rates`|[&nbsp;string&nbsp;]|Provides filtering by video frame rate (frames/second).|
+|query|`keyword_ids`|[&nbsp;integer&nbsp;]|Return only images tagged with specific keyword(s). Specify using a comma-separated list of keyword Ids. If keyword Ids and phrase are both specified, only those images matching the query phrase which also contain the requested keyword(s) are returned.|
+|query|`license_models`|[&nbsp;string&nbsp;]|Specifies the video licensing model(s).|
 |query|`page`|_integer_|Identifies page to return. Default is 1.|
 |query|`page_size`|_integer_|Specifies page size. Default is 30, maximum page_size is 100.|
 |query|`phrase`|_string_|Free-text search query.|
-|query|`product_types`|[ ]|Provides filtering by a list of product types.|
+|query|`product_types`|[&nbsp;string&nbsp;]|Provides filtering by a list of product types.|
 |query|`sort_order`|_string_|Allows sorting of results.|
-|query|`specific_people`|[ ]|Provides filtering by specific peoples' names.|
+|query|`specific_people`|[&nbsp;string&nbsp;]|Provides filtering by specific peoples' names.|
 
 #### Responses
 
@@ -1342,19 +1342,19 @@ _Code_ `403`: UnauthorizedDisplaySize
 |header|`Api-Key`|_string_|Provide your API key.|
 |header|`Accept-Language`|_string_|Provide a header to specify the language of result values.|
 |header|`Authorization`|_string_|Provide access token in the format of 'Bearer {token}'.|
-|query|`age_of_people`|[ ]|Provides filtering according to the age of individuals in a video.|
-|query|`collection_codes`|[ ]|Provides filtering by collection code.|
+|query|`age_of_people`|[&nbsp;string&nbsp;]|Provides filtering according to the age of individuals in a video.|
+|query|`collection_codes`|[&nbsp;string&nbsp;]|Provides filtering by collection code.|
 |query|`collections_filter_type`|_string_|Provides searching based on specified collection(s).|
 |query|`exclude_nudity`|_boolean_|Excludes images containing nudity. The default is false.|
-|query|`fields`|[ ]|Specifies fields to return. Defaults to 'summary_set'.|
+|query|`fields`|[&nbsp;string&nbsp;]|Specifies fields to return. Defaults to 'summary_set'.|
 |query|`format_available`|_string_|Filters according to the digital video format available on a film asset.|
-|query|`frame_rates`|[ ]|Provides filtering by video frame rate (frames/second).|
-|query|`keyword_ids`|[ ]|Return only images tagged with specific keyword(s). Specify using a comma-separated list of keyword Ids. If keyword Ids and phrase are both specified, only those images matching the query phrase which also contain the requested keyword(s) are returned.|
-|query|`license_models`|[ ]|Specifies the video licensing model(s).|
+|query|`frame_rates`|[&nbsp;string&nbsp;]|Provides filtering by video frame rate (frames/second).|
+|query|`keyword_ids`|[&nbsp;integer&nbsp;]|Return only images tagged with specific keyword(s). Specify using a comma-separated list of keyword Ids. If keyword Ids and phrase are both specified, only those images matching the query phrase which also contain the requested keyword(s) are returned.|
+|query|`license_models`|[&nbsp;string&nbsp;]|Specifies the video licensing model(s).|
 |query|`page`|_integer_|Identifies page to return. Default is 1.|
 |query|`page_size`|_integer_|Specifies page size. Default is 30, maximum page_size is 100.|
 |query|`phrase`|_string_|Free-text search query.|
-|query|`product_types`|[ ]|Allows filtering by a list of product types.|
+|query|`product_types`|[&nbsp;string&nbsp;]|Allows filtering by a list of product types.|
 |query|`sort_order`|_string_|Allows sorting of results.|
 
 #### Responses
@@ -1382,22 +1382,22 @@ _Code_ `403`: UnauthorizedDisplaySize
 |header|`Api-Key`|_string_|Provide your API key.|
 |header|`Accept-Language`|_string_|Provide a header to specify the language of result values.|
 |header|`Authorization`|_string_|Provide access token in the format of 'Bearer {token}'.|
-|query|`age_of_people`|[ ]|Provides filtering according to the age of individuals in a video.|
-|query|`collection_codes`|[ ]|Provides filtering by collection code.|
+|query|`age_of_people`|[&nbsp;string&nbsp;]|Provides filtering according to the age of individuals in a video.|
+|query|`collection_codes`|[&nbsp;string&nbsp;]|Provides filtering by collection code.|
 |query|`collections_filter_type`|_string_|Provides searching based on specified collection(s).|
-|query|`editorial_video_types`|[ ]|Allows filtering by types of video.|
-|query|`entity_uris`|[ ]|specify link data entity uri.|
+|query|`editorial_video_types`|[&nbsp;string&nbsp;]|Allows filtering by types of video.|
+|query|`entity_uris`|[&nbsp;string&nbsp;]|specify link data entity uri.|
 |query|`exclude_nudity`|_boolean_|Excludes images containing nudity. The default is false.|
-|query|`fields`|[ ]|Specifies fields to return. Defaults to 'summary_set'.|
+|query|`fields`|[&nbsp;string&nbsp;]|Specifies fields to return. Defaults to 'summary_set'.|
 |query|`format_available`|_string_|Filters according to the digital video format available on a film asset.|
-|query|`frame_rates`|[ ]|Provides filtering by video frame rate (frames/second).|
-|query|`keyword_ids`|[ ]|Return only images tagged with specific keyword(s). Specify using a comma-separated list of keyword Ids. If keyword Ids and phrase are both specified, only those images matching the query phrase which also contain the requested keyword(s) are returned.|
+|query|`frame_rates`|[&nbsp;string&nbsp;]|Provides filtering by video frame rate (frames/second).|
+|query|`keyword_ids`|[&nbsp;integer&nbsp;]|Return only images tagged with specific keyword(s). Specify using a comma-separated list of keyword Ids. If keyword Ids and phrase are both specified, only those images matching the query phrase which also contain the requested keyword(s) are returned.|
 |query|`page`|_integer_|Identifies page to return. Default is 1.|
 |query|`page_size`|_integer_|Specifies page size. Default is 30, maximum page_size is 100.|
 |query|`phrase`|_string_|Free-text search query.|
-|query|`product_types`|[ ]|Allows filtering by a list of product types.|
+|query|`product_types`|[&nbsp;string&nbsp;]|Allows filtering by a list of product types.|
 |query|`sort_order`|_string_|Allows sorting of results.|
-|query|`specific_people`|[ ]|Allows filtering by specific peoples' names.|
+|query|`specific_people`|[&nbsp;string&nbsp;]|Allows filtering by specific peoples' names.|
 
 #### Responses
 
@@ -1461,8 +1461,8 @@ _Code_ `409`: TransactionIdDuplicated - The id parameter supplied was already us
 |header|`Api-Key`|_string_|Provide your API key.|
 |header|`Accept-Language`|_string_|Provide a header to specify the language of result values.|
 |header|`Authorization`|_string_|Provide access token in the format of 'Bearer {token}'.|
-|query|`ids`|[ ]|Specifies one or more video ids to return. Use comma delimiter when requesting multiple ids.|
-|query|`fields`|[ ]|Specifies fields to return. Defaults to 'summary_set'.|
+|query|`ids`|[&nbsp;string&nbsp;]|Specifies one or more video ids to return. Use comma delimiter when requesting multiple ids.|
+|query|`fields`|[&nbsp;string&nbsp;]|Specifies fields to return. Defaults to 'summary_set'.|
 
 #### Responses
 
@@ -1492,7 +1492,7 @@ _Code_ `404`: VideosNotFound
 |header|`Accept-Language`|_string_|Provide a header to specify the language of result values.|
 |header|`Authorization`|_string_|Provide access token in the format of 'Bearer {token}'.|
 |path|`id`|_string_|A video id. For more than one video please use the /v3/video endpoint.|
-|query|`fields`|[ ]|comma delimited list of fields to retrive for the video|
+|query|`fields`|[&nbsp;string&nbsp;]|comma delimited list of fields to retrive for the video|
 
 #### Responses
 
@@ -1522,7 +1522,7 @@ _Code_ `404`: VideosNotFound
 |header|`Accept-Language`|_string_|Provide a header to specify the language of result values.|
 |header|`Authorization`|_string_|Provide access token in the format of 'Bearer {token}'.|
 |path|`id`|_string_|A video id.|
-|query|`fields`|[ ]|comma delimited list of fields to retrive for the videos|
+|query|`fields`|[&nbsp;string&nbsp;]|comma delimited list of fields to retrive for the videos|
 |query|`page`|_integer_|Identifies page to return. Default is 1.|
 |query|`page_size`|_integer_|Specifies page size. Default is 30, maximum page_size is 100.|
 

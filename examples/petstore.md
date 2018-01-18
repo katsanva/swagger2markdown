@@ -116,7 +116,7 @@ _Code_ `405`: Validation exception
 
 |Position|Name|Type|Description|
 |---|---|---|---|
-|query|`status`|[ ]|Status values that need to be considered for filter|
+|query|`status`|[&nbsp;string&nbsp;]|Status values that need to be considered for filter|
 
 #### Responses
 
@@ -136,7 +136,7 @@ _Code_ `400`: Invalid status value
 
 |Position|Name|Type|Description|
 |---|---|---|---|
-|query|`tags`|[ ]|Tags to filter by|
+|query|`tags`|[&nbsp;string&nbsp;]|Tags to filter by|
 
 #### Responses
 
