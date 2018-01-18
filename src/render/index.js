@@ -6,6 +6,7 @@ import {
   pipe,
   reduce,
   forEach,
+  curry,
 } from 'ramda';
 
 import {
@@ -18,7 +19,7 @@ import renderMenu from './menu';
 import renderAPI from './api';
 import renderDefinitions from './definitions';
 
-export const groupRequestsByTags = (paths) => {
+export const getFlatPaths = (paths) => {
   const flat = [];
 
   pipe(
@@ -34,6 +35,12 @@ export const groupRequestsByTags = (paths) => {
       }, Object.keys(paths[path])
     )))(paths);
 
+  return flat;
+};
+
+export const groupRequestsByTags = curry((getFlatPaths, paths) => {
+ const flat = getFlatPaths(paths);
+
   return reduce((acc, definition) => {
     forEach(tag => {
       if (!acc[tag]) {
@@ -42,9 +49,10 @@ export const groupRequestsByTags = (paths) => {
 
       acc[tag].push(definition);
     }, definition.tags || []);
+
     return acc;
   }, {}, flat);
-};
+});
 
 export const getBase = (document, {prependHeader}) => {
   const {
@@ -80,7 +88,7 @@ export default function renderDocument(document, config) {
 
   mapObjIndexed((value) => resolveRefs(definitions, value), definitions);
 
-  const groupedByTags = groupRequestsByTags(paths);
+  const groupedByTags = groupRequestsByTags(getFlatPaths, paths);
   const base = getBase(document, config);
 
   return base

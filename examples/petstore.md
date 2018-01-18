@@ -62,9 +62,9 @@ Everything about your Pets
 
 ##### Parameters
 
-Position|Name|Type|Description
----|---|---|---
-body|`body`|[_Pet_](#/definitions/Pet)|
+|Position|Name|Type|Description|
+|---|---|---|---|
+|body|`body`|[_Pet_](#/definitions/Pet)||
 
 ##### Example
 
@@ -86,9 +86,9 @@ _Code_ `405`: Invalid input
 
 ##### Parameters
 
-Position|Name|Type|Description
----|---|---|---
-body|`body`|[_Pet_](#/definitions/Pet)|
+|Position|Name|Type|Description|
+|---|---|---|---|
+|body|`body`|[_Pet_](#/definitions/Pet)||
 
 ##### Example
 
@@ -114,17 +114,15 @@ _Code_ `405`: Validation exception
 
 ##### Parameters
 
-Position|Name|Type|Description
----|---|---|---
-query|`status`|_array_|Status values that need to be considered for filter
-
-##### Example
+|Position|Name|Type|Description|
+|---|---|---|---|
+|query|`status`|[ ]|Status values that need to be considered for filter|
 
 #### Responses
 
 _Code_ `200`: successful operation
 
-_Schema_: [ [_Pet_](#/definitions/Pet) ]
+_Schema_: [&nbsp;[_Pet_](#/definitions/Pet)&nbsp;]
 
 _Code_ `400`: Invalid status value
 
@@ -136,17 +134,15 @@ _Code_ `400`: Invalid status value
 
 ##### Parameters
 
-Position|Name|Type|Description
----|---|---|---
-query|`tags`|_array_|Tags to filter by
-
-##### Example
+|Position|Name|Type|Description|
+|---|---|---|---|
+|query|`tags`|[ ]|Tags to filter by|
 
 #### Responses
 
 _Code_ `200`: successful operation
 
-_Schema_: [ [_Pet_](#/definitions/Pet) ]
+_Schema_: [&nbsp;[_Pet_](#/definitions/Pet)&nbsp;]
 
 _Code_ `400`: Invalid tag value
 
@@ -158,11 +154,9 @@ _Code_ `400`: Invalid tag value
 
 ##### Parameters
 
-Position|Name|Type|Description
----|---|---|---
-path|`petId`|_integer_|ID of pet to return
-
-##### Example
+|Position|Name|Type|Description|
+|---|---|---|---|
+|path|`petId`|_integer_|ID of pet to return|
 
 #### Responses
 
@@ -182,13 +176,11 @@ _Code_ `404`: Pet not found
 
 ##### Parameters
 
-Position|Name|Type|Description
----|---|---|---
-path|`petId`|_integer_|ID of pet that needs to be updated
-formData|`name`|_string_|Updated name of the pet
-formData|`status`|_string_|Updated status of the pet
-
-##### Example
+|Position|Name|Type|Description|
+|---|---|---|---|
+|path|`petId`|_integer_|ID of pet that needs to be updated|
+|formData|`name`|_string_|Updated name of the pet|
+|formData|`status`|_string_|Updated status of the pet|
 
 #### Responses
 
@@ -202,12 +194,10 @@ _Code_ `405`: Invalid input
 
 ##### Parameters
 
-Position|Name|Type|Description
----|---|---|---
-header|`api_key`|_string_|
-path|`petId`|_integer_|Pet id to delete
-
-##### Example
+|Position|Name|Type|Description|
+|---|---|---|---|
+|header|`api_key`|_string_||
+|path|`petId`|_integer_|Pet id to delete|
 
 #### Responses
 
@@ -223,13 +213,11 @@ _Code_ `404`: Pet not found
 
 ##### Parameters
 
-Position|Name|Type|Description
----|---|---|---
-path|`petId`|_integer_|ID of pet to update
-formData|`additionalMetadata`|_string_|Additional data to pass to server
-formData|`file`|_file_|file to upload
-
-##### Example
+|Position|Name|Type|Description|
+|---|---|---|---|
+|path|`petId`|_integer_|ID of pet to update|
+|formData|`additionalMetadata`|_string_|Additional data to pass to server|
+|formData|`file`|_file_|file to upload|
 
 #### Responses
 
@@ -253,8 +241,8 @@ _Code_ `200`: successful operation
 
 _Schema_:
 
-Name|Type|Description
----|---|---
+|Name|Type|Description|
+|---|---|---|
 
 ### Place an order for a pet
 
@@ -264,9 +252,9 @@ Name|Type|Description
 
 ##### Parameters
 
-Position|Name|Type|Description
----|---|---|---
-body|`body`|[_Order_](#/definitions/Order)|
+|Position|Name|Type|Description|
+|---|---|---|---|
+|body|`body`|[_Order_](#/definitions/Order)||
 
 ##### Example
 
@@ -290,11 +278,9 @@ _Code_ `400`: Invalid Order
 
 ##### Parameters
 
-Position|Name|Type|Description
----|---|---|---
-path|`orderId`|_integer_|ID of pet that needs to be fetched
-
-##### Example
+|Position|Name|Type|Description|
+|---|---|---|---|
+|path|`orderId`|_integer_|ID of pet that needs to be fetched|
 
 #### Responses
 
@@ -314,11 +300,9 @@ _Code_ `404`: Order not found
 
 ##### Parameters
 
-Position|Name|Type|Description
----|---|---|---
-path|`orderId`|_integer_|ID of the order that needs to be deleted
-
-##### Example
+|Position|Name|Type|Description|
+|---|---|---|---|
+|path|`orderId`|_integer_|ID of the order that needs to be deleted|
 
 #### Responses
 
@@ -338,9 +322,9 @@ Operations about user
 
 ##### Parameters
 
-Position|Name|Type|Description
----|---|---|---
-body|`body`|[_User_](#/definitions/User)|
+|Position|Name|Type|Description|
+|---|---|---|---|
+|body|`body`|[_User_](#/definitions/User)||
 
 ##### Example
 
@@ -360,11 +344,9 @@ _Code_ `default`: successful operation
 
 ##### Parameters
 
-Position|Name|Type|Description
----|---|---|---
-body|`body`|_array_|
-
-##### Example
+|Position|Name|Type|Description|
+|---|---|---|---|
+|body|`body`|[&nbsp;undefined&nbsp;]||
 
 #### Responses
 
@@ -378,11 +360,9 @@ _Code_ `default`: successful operation
 
 ##### Parameters
 
-Position|Name|Type|Description
----|---|---|---
-body|`body`|_array_|
-
-##### Example
+|Position|Name|Type|Description|
+|---|---|---|---|
+|body|`body`|[&nbsp;undefined&nbsp;]||
 
 #### Responses
 
@@ -396,12 +376,10 @@ _Code_ `default`: successful operation
 
 ##### Parameters
 
-Position|Name|Type|Description
----|---|---|---
-query|`username`|_string_|The user name for login
-query|`password`|_string_|The password for login in clear text
-
-##### Example
+|Position|Name|Type|Description|
+|---|---|---|---|
+|query|`username`|_string_|The user name for login|
+|query|`password`|_string_|The password for login in clear text|
 
 #### Responses
 
@@ -427,11 +405,9 @@ _Code_ `default`: successful operation
 
 ##### Parameters
 
-Position|Name|Type|Description
----|---|---|---
-path|`username`|_string_|The name that needs to be fetched. Use user1 for testing. 
-
-##### Example
+|Position|Name|Type|Description|
+|---|---|---|---|
+|path|`username`|_string_|The name that needs to be fetched. Use user1 for testing. |
 
 #### Responses
 
@@ -451,10 +427,10 @@ _Code_ `404`: User not found
 
 ##### Parameters
 
-Position|Name|Type|Description
----|---|---|---
-path|`username`|_string_|name that need to be updated
-body|`body`|[_User_](#/definitions/User)|
+|Position|Name|Type|Description|
+|---|---|---|---|
+|path|`username`|_string_|name that need to be updated|
+|body|`body`|[_User_](#/definitions/User)||
 
 ##### Example
 
@@ -476,11 +452,9 @@ _Code_ `404`: User not found
 
 ##### Parameters
 
-Position|Name|Type|Description
----|---|---|---
-path|`username`|_string_|The name that needs to be deleted
-
-##### Example
+|Position|Name|Type|Description|
+|---|---|---|---|
+|path|`username`|_string_|The name that needs to be deleted|
 
 #### Responses
 
@@ -494,67 +468,67 @@ _Code_ `404`: User not found
 
 Order
 
-Name|Type|Description
----|---|---
-`id`|_integer_|
-`petId`|_integer_|
-`quantity`|_integer_|
-`shipDate`|_string_|
-`status`|_string_|Order Status
-`complete`|_boolean_|
+|Name|Type|Description|
+|---|---|---|
+|`id`|_integer_||
+|`petId`|_integer_||
+|`quantity`|_integer_||
+|`shipDate`|_string_||
+|`status`|_string_|Order Status|
+|`complete`|_boolean_||
 
 <h3 id='/definitions/User'>User</h3>
 
 User
 
-Name|Type|Description
----|---|---
-`id`|_integer_|
-`username`|_string_|
-`firstName`|_string_|
-`lastName`|_string_|
-`email`|_string_|
-`password`|_string_|
-`phone`|_string_|
-`userStatus`|_integer_|User Status
+|Name|Type|Description|
+|---|---|---|
+|`id`|_integer_||
+|`username`|_string_||
+|`firstName`|_string_||
+|`lastName`|_string_||
+|`email`|_string_||
+|`password`|_string_||
+|`phone`|_string_||
+|`userStatus`|_integer_|User Status|
 
 <h3 id='/definitions/Category'>Category</h3>
 
 Category
 
-Name|Type|Description
----|---|---
-`id`|_integer_|
-`name`|_string_|
+|Name|Type|Description|
+|---|---|---|
+|`id`|_integer_||
+|`name`|_string_||
 
 <h3 id='/definitions/Tag'>Tag</h3>
 
 Tag
 
-Name|Type|Description
----|---|---
-`id`|_integer_|
-`name`|_string_|
+|Name|Type|Description|
+|---|---|---|
+|`id`|_integer_||
+|`name`|_string_||
 
 <h3 id='/definitions/Pet'>Pet</h3>
 
 Pet
 
-Name|Type|Description
----|---|---
-`id`|_integer_|
-`category`|_object_|
-`name`|_string_|
-`photoUrls`|_array_|
-`tags`|_array_|
-`status`|_string_|pet status in the store
+|Name|Type|Description|
+|---|---|---|
+|`id`|_integer_||
+|`category`|_object_||
+|`name`|_string_||
+|`photoUrls`|[&nbsp;string&nbsp;]||
+|`tags`|[&nbsp;[_Tag_](#/definitions/Tag)&nbsp;]||
+|`status`|_string_|pet status in the store|
 
 <h3 id='/definitions/ApiResponse'>ApiResponse</h3>
 
 ApiResponse
 
-Name|Type|Description
----|---|---
-`code`|_integer_|
-`type`|_string_|
-`message`|_string_|
+|Name|Type|Description|
+|---|---|---|
+|`code`|_integer_||
+|`type`|_string_||
+|`message`|_string_||

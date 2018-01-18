@@ -46,6 +46,8 @@ export const getExamples = (body, definitions) => {
       'application/json': res
     }
   }
+
+  return {};
 };
 
 export const getRequestExample = (parameters, definitions) => {

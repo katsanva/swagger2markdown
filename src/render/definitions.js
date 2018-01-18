@@ -10,6 +10,7 @@ import {
 import renderObjectProps from "./object-props";
 import resolveRefs from "./resolve-refs";
 import {italics, table, th} from "./md";
+import renderArrayType from "./array-with-type";
 
 export const renderDefinitionWithTable = (definitions, name, definitionWithResolvedRefs) => {
   const definitionsTable = table(
@@ -24,11 +25,23 @@ export const renderDefinitionWithTable = (definitions, name, definitionWithResol
   ];
 };
 
-export const renderDefinitionSimple = (definitions, name) => [
-  `<h3 id='/definitions/${name}'>${name}</h3>`,
-  `${definitions[name].description || name}`,
-  `Type: ${italics(definitions[name].type)}`
-];
+export const getType = (definition) => {
+  if (definition.type === 'array') {
+    return definition.items ? renderArrayType(definition.items.type) : `[ ]`;
+  }
+
+  return italics(definition.type);
+};
+
+export const renderDefinitionSimple = (definitions, name) => {
+  const type = getType(definitions[name]);
+
+  return [
+    `<h3 id='/definitions/${name}'>${name}</h3>`,
+    `${definitions[name].description || name}`,
+    `Type: ${type}`
+  ]
+};
 
 export const renderAnyDefinition = curry((definitions, name) => {
   const definitionWithResolvedRefs = resolveRefs(definitions, definitions[name]);

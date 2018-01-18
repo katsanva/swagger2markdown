@@ -2,19 +2,20 @@ import {curry} from 'ramda';
 
 import {escape, italics, pre, tr} from "./md";
 import renderSchema from "./schema";
+import {getType} from "./definitions";
 
-export const getRowByParameterSchema = parameter => tr(
-  parameter.in,
-  pre(parameter.name),
-  renderSchema(parameter.schema),
+export const getRowByParameterSchema = ({'in': $in, name, schema}) => tr(
+  $in,
+  pre(name),
+  renderSchema(schema),
   ''
 );
 
-export const getRowByParameterType = parameter => tr(
-  parameter.in,
-  pre(parameter.name),
-  italics(parameter.type),
-  escape(parameter.description)
+export const getRowByParameterType = ({'in': $in, name, type, description, items}) => tr(
+  $in,
+  pre(name),
+  getType({type, items}),
+  escape(description)
 );
 
 export const renderParameter = curry((getRowByParameterSchema, getRowByParameterType, parameter) => {

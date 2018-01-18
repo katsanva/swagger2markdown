@@ -9,25 +9,25 @@ import {
 } from 'ramda';
 import objectAssignDeep from 'object-assign-deep';
 
-export const getSchema = (definitions, ref) => {
-  const path = ref
+export const getSchema = (definitions, $ref) => {
+  const path = $ref
     .split('/')
     .slice(2);
 
   const lens = lensPath(path);
 
-  return view(lens, definitions);
+  return view(lens, definitions) || {};
 };
 
 export const resolvePropertiesRefs = (definitions, schema) => {
-  if (schema.properties) {
+  if (schema.properties && !schema.$properties) {
     schema.$properties = schema.properties;
     schema.properties = map(prop => resolveRefs(definitions, prop), schema.properties)
   }
 };
 
 export const resolveItemsRefs = (definitions, schema) => {
-  if (schema.items) {
+  if (schema.items && !schema.$items) {
     schema.$items = schema.items;
     schema.items = resolveRefs(definitions, schema.items)
   }

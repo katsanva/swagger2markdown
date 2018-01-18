@@ -54,8 +54,9 @@
     "markdown"
   ],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "js-yaml": "^3.10.0",
     "object-assign-deep": "0.0.4",
     "ramda": "^0.25.0",

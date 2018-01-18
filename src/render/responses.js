@@ -10,8 +10,13 @@ import resolveRefs from "./resolve-refs";
 import renderMixins from "./mixins";
 import getRefLink from "./get-ref-link";
 import renderObjectProps from './object-props';
+import renderArrayType from "./array-with-type";
 
-export const renderResponseSchema = (definitions, schema = {}) => {
+export const renderResponseSchema = (definitions, schema) => {
+  if (!schema) {
+    return [];
+  }
+
   resolveRefs(definitions, schema);
 
   if (schema.$ref) {
@@ -31,7 +36,7 @@ export const renderResponseSchema = (definitions, schema = {}) => {
   if (schema.type === 'array') {
     if (schema.$items.$ref) {
       return [
-        `${italics('Schema')}: [ ${getRefLink(schema.$items.$ref)} ]`
+        `${italics('Schema')}: ${renderArrayType(getRefLink(schema.$items.$ref))}`
       ];
     }
 
@@ -66,32 +71,40 @@ export const renderResponseSchema = (definitions, schema = {}) => {
 
 export const renderResponseExamples = (examples = {}) => reduce((acc, type) => [
   ...acc,
-  bold(type),
+  isNaN(type) ? bold(type) : '',
   code(examples[type], type),
 ], [], Object.keys(examples));
 
 
+export const getResponseCodeHeader = (responseCode, description) => {
+  const header = `${italics(`Code`)} ${pre(responseCode)}`;
+
+  if (!description) {
+    return header;
+  }
+
+  return `${header}: ${description}`
+};
+
 export const renderResponses = (definitions, path) => {
   return reduce((acc, responseCode) => {
     const value = path.responses[responseCode];
+    const header = getResponseCodeHeader(responseCode, value.description);
 
     const keys = Object.keys(value.examples || {});
+    const result = acc.concat(
+      header,
+      renderResponseSchema(definitions, value.schema)
+    );
 
-    if (!keys.length) {
-      return [
-        ...acc,
-        `${italics(`Code`)} ${pre(responseCode)}: ${value.description}`,
-        ...renderResponseSchema(definitions, value.schema),
-      ]
+    if (keys.length) {
+      return result.concat(
+        heading(`Examples`, 5),
+        renderResponseExamples(value.examples)
+      )
     }
 
-    return [
-      ...acc,
-      `${italics(`Code`)} ${pre(responseCode)}: ${value.description}`,
-      ...renderResponseSchema(definitions, value.schema),
-      heading(`Examples`, 5),
-      ...renderResponseExamples(value.examples)
-    ];
+    return result;
   }, [], Object.keys(path.responses));
 };
 

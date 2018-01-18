@@ -13,7 +13,7 @@ export const renderWithTags = curry((swaggerDocument, groupedByTags, acc, tagNam
   const tagObj = find(a => a.name === tagName, swaggerDocument.tags || []);
   const tagView = [];
 
-  tagView.push(heading(tagName), 2);
+  tagView.push(heading(tagName, 2));
 
   if (tagObj && tagObj.description) {
     tagView.push(`${tagObj.description}`)

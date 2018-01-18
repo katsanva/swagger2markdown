@@ -4,20 +4,28 @@ export const getFilledArray = (length, content) => Array(length).fill(content);
 
 export const pre = string => `\`${string}\``;
 
-export const link = (name, link) => `[${name}](${(link || name)})`;
+export const link = (name, link, options = {target: '_self'}) => {
+  const {target} = options;
+
+  if (target === '_self') {
+    return `[${name}](${(link || name)})`;
+  }
+
+  return `<a href="${link}" target="${target}" title="${name}">${name}</a>`
+};
 
 export const italics = string => `_${string}_`;
 
 export const bold = string => `**${string}**`;
 
-export const tr = (...args) => args.join('|');
+export const tr = (...args) => `|${args.join('|')}|`;
 
 export const th = (...args) => [
   tr(...args),
   tr(...getFilledArray(args.length, '---'))
 ];
 
-export const escape = (string = '') => string.replace(/\r\n/gi, ' ').replace(/\n\n/gi, ' ');
+export const escape = (string = '') => string.replace(/\r/gi, '<br/>').replace(/\n/gi, '<br/>');
 
 export const table = (header, rows) => header.concat(rows).join('\n');
 

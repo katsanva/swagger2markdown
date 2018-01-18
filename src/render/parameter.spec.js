@@ -8,7 +8,7 @@ test('getRowByParameterSchema', () => {
     },
     descritpion: '111'
   };
-  const expected = 'foo|`bla`|_string_|';
+  const expected = '|foo|`bla`|_string_||';
 
   const result = getRowByParameterSchema(parameter);
 
@@ -22,7 +22,7 @@ test('getRowByParameterType', () => {
     description: '111'
   };
 
-  const expected = 'foo|`bla`|_string_|111';
+  const expected = '|foo|`bla`|_string_|111|';
 
   const result = getRowByParameterType(parameter);
 

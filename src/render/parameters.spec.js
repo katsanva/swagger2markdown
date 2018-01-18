@@ -44,7 +44,7 @@ test('getParametersTable', () => {
     ]
   };
 
-  const expected = 'Position|Name|Type|Description\n---|---|---|---\nbla|`foo`|_bleep_|blop';
+  const expected = '|Position|Name|Type|Description|\n|---|---|---|---|\n|bla|`foo`|_bleep_|blop|';
 
   const result = getParametersTable(parameters, path);
 
@@ -79,7 +79,7 @@ test('renderParameters: no example block', () => {
   const definitions = {};
   const expected = [
     "##### Parameters",
-    "Position|Name|Type|Description\n---|---|---|---\nbla|`foo`|_bleep_|blop",
+    "|Position|Name|Type|Description|\n|---|---|---|---|\n|bla|`foo`|_bleep_|blop|",
   ];
 
   const result = renderParameters(path, parameters, definitions);
@@ -106,7 +106,7 @@ test('renderParameters: no example block', () => {
   const definitions = {};
   const expected = [
     "##### Parameters",
-    "Position|Name|Type|Description\n---|---|---|---\nbody|`foo`|_bleep_|",
+    "|Position|Name|Type|Description|\n|---|---|---|---|\n|body|`foo`|_bleep_||",
     "##### Example",
     "```application/json\n{\n  \"blop\": \"blo\"\n}\n```"
   ];

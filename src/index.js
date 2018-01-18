@@ -2,6 +2,7 @@
 
 'use strict';
 
+import "babel-polyfill";
 import yargs from 'yargs';
 import yaml from 'js-yaml';
 import fs from 'fs';

@@ -102,7 +102,7 @@ test('bold', () => {
 
 test('tr', () => {
   const args = [1, 2, 3];
-  const expected = '1|2|3';
+  const expected = '|1|2|3|';
 
   const result = tr(...args);
 
@@ -111,7 +111,7 @@ test('tr', () => {
 
 test('th', () => {
   const args = [1, 2, 3];
-  const expected = ['1|2|3', '---|---|---'];
+  const expected = ['|1|2|3|', '|---|---|---|'];
 
   const result = th(...args);
 
@@ -120,7 +120,7 @@ test('th', () => {
 
 test('escape', () => {
   const string = 'foo\n\nbla\r\nblop\n';
-  const expected = 'foo bla blop\n';
+  const expected = 'foo<br/><br/>bla<br/><br/>blop<br/>';
 
   const result = escape(string);
 

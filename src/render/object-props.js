@@ -14,10 +14,17 @@ import {
 } from './md';
 
 import getRefLink from "./get-ref-link";
+import renderArrayType from "./array-with-type";
 
-export const getObjectRefRow = (p, ref) => tr(
+export const getArrayItemRefRow = (p, ref) => tr(
   pre(p),
-  getRefLink(ref),
+  renderArrayType(getRefLink(ref)),
+  ''
+);
+
+export const getArrayItemRow = (p, type) => tr(
+  pre(p),
+  renderArrayType(type),
   ''
 );
 
@@ -32,8 +39,12 @@ export const renderProp = curry((properties, $properties, property) => {
   const isArray = value.type === 'array';
   const arrayItemsAreRef = $items && $items.$ref;
 
-  if (isArray && arrayItemsAreRef) {
-    return getObjectRefRow(property, $items.$ref);
+  if (isArray) {
+    if (!arrayItemsAreRef) {
+      return getArrayItemRow(property, value.items.type)
+    }
+
+    return getArrayItemRefRow(property, $items.$ref);
   }
 
   const isRef = $properties[property] && $properties[property].$ref;
@@ -41,7 +52,7 @@ export const renderProp = curry((properties, $properties, property) => {
   if (isRef) {
     return tr(
       pre(property),
-      link(isRef),
+      getRefLink(isRef),
       escape(description)
     );
   }
