@@ -17,47 +17,43 @@ export const renderResponseSchema = (definitions, schema) => {
     return [];
   }
 
+  let result = [];
+
   resolveRefs(definitions, schema);
 
   if (schema.$ref) {
-    return [`${italics(`Schema`)}: ${getRefLink(schema.$ref)}`];
-  }
-
-  if (schema.allOf) {
-    return [
+    result = [`${italics(`Schema`)}: ${getRefLink(schema.$ref)}`];
+  } else if (schema.allOf) {
+    result = [
       `${italics(`Schema`)}:`,
       table(
         th(`Name`, `Type`, `Description`),
         map(renderMixins(), schema.allOf)
       )
     ];
-  }
-
-  if (schema.type === 'array') {
+  } else if (schema.type === 'array') {
     if (schema.$items.$ref) {
-      return [
+      result = [
         `${italics('Schema')}: ${renderArrayType(getRefLink(schema.$items.$ref))}`
       ];
+    } else {
+      const header = `${italics('Schema')}: array ${escape(schema.description)}`;
+
+      if (schema.items.type !== 'object') {
+        result = [header];
+      } else {
+        result = [
+          header,
+          `Items:`,
+          table(
+            th(`Name`, `Type`, `Description`),
+            renderObjectProps(schema.items.properties)
+          )
+        ];
+      }
     }
-
-    const header = `${italics('Schema')}: array ${escape(schema.description)}`;
-
-    if (schema.items.type !== 'object') {
-      return [header];
-    }
-
-    return [
-      header,
-      `Items:`,
-      table(
-        th(`Name`, `Type`, `Description`),
-        renderObjectProps(schema.items.properties)
-      )
-    ];
-  }
-
-  if (schema.type === 'object') {
-    return [
+  } else if (schema.type === 'object') {
+    result = [
       `${italics('Schema')}:`,
       table(
         th(`Name`, `Type`, `Description`),
@@ -66,7 +62,7 @@ export const renderResponseSchema = (definitions, schema) => {
     ];
   }
 
-  return [];
+  return result;
 };
 
 export const renderResponseExamples = (examples = {}) => reduce((acc, type) => [
