@@ -3,30 +3,43 @@
 import {
   map,
   curry,
+  view,
+  lensPath,
 } from 'ramda';
 
 import {
   pre,
   tr,
-  link,
   escape,
   italics,
 } from './md';
 
-import getRefLink from "./get-ref-link";
-import renderArrayType from "./array-with-type";
+import getRefLink from './get-ref-link';
+import renderArrayType from './array-with-type';
 
-export const getArrayItemRefRow = (p, ref) => tr(
-  pre(p),
+export const getArrayItemRefRow = (name, ref) => tr(
+  pre(name),
   renderArrayType(getRefLink(ref)),
   ''
 );
 
-export const getArrayItemRow = (p, type) => tr(
-  pre(p),
+export const getArrayItemRow = (name, type) => tr(
+  pre(name),
   renderArrayType(type),
   ''
 );
+
+export const renderArray = (property, $items, value) => {
+  const arrayItemsAreRef = $items && $items.$ref;
+
+  if (arrayItemsAreRef) {
+    return getArrayItemRefRow(property, $items.$ref);
+  }
+
+  const type = view(lensPath(['items', 'type']), value) || 'any';
+
+  return getArrayItemRow(property, type)
+};
 
 export const renderProp = curry((properties, $properties, property) => {
   const value = properties[property];
@@ -36,23 +49,23 @@ export const renderProp = curry((properties, $properties, property) => {
     $items,
   } = properties[property];
 
-  const isArray = value.type === 'array';
-  const arrayItemsAreRef = $items && $items.$ref;
-
-  if (isArray) {
-    if (!arrayItemsAreRef) {
-      return getArrayItemRow(property, value.items.type)
-    }
-
-    return getArrayItemRefRow(property, $items.$ref);
+  if (value.type === 'array') {
+    return renderArray(property, $items, value);
   }
 
-  const isRef = $properties[property] && $properties[property].$ref;
+  const referencePath = [
+    property,
+    '$ref',
+  ];
+  const reference = view(
+    lensPath(referencePath),
+    $properties
+  );
 
-  if (isRef) {
+  if (reference) {
     return tr(
       pre(property),
-      getRefLink(isRef),
+      getRefLink(reference),
       escape(description)
     );
   }

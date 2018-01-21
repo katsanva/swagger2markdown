@@ -51,6 +51,18 @@ test('getParametersTable', () => {
   expect(result).toBe(expected);
 });
 
+test('getParametersTable, no parameters', () => {
+  const parameters = {};
+  const path = {
+  };
+
+  const expected = '';
+
+  const result = getParametersTable(parameters, path);
+
+  expect(result).toBe(expected);
+});
+
 test('renderParameters: no parameters', () => {
   const path = {
     parameters: [],
@@ -151,6 +163,16 @@ test('fillExampleByBodyField', () => {
 });
 
 test('getExamples', () => {
+  const body = {schema: {}};
+  const definitions = {};
+  const expected = {};
+
+  const result = getExamples(body, definitions);
+
+  expect(result).toEqual(expected);
+});
+
+test('getExamples, no schema', () => {
   const body = {};
   const definitions = {};
   const expected = {};

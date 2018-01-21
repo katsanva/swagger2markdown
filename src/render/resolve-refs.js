@@ -22,7 +22,7 @@ export const getSchema = (definitions, $ref) => {
 export const resolvePropertiesRefs = (definitions, schema) => {
   if (schema.properties && !schema.$properties) {
     schema.$properties = schema.properties;
-    schema.properties = map(prop => resolveRefs(definitions, prop), schema.properties)
+    schema.properties = map(resolveRefs(definitions), schema.properties)
   }
 };
 

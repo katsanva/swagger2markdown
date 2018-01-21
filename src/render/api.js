@@ -9,15 +9,23 @@ import {
 import {heading} from "./md";
 import renderEndpoint from "./endpoint";
 
-export const renderWithTags = curry((swaggerDocument, groupedByTags, acc, tagName) => {
-  const tagObj = find(a => a.name === tagName, swaggerDocument.tags || []);
+export const nameFilter = curry((tagName, tag) => tag.name === tagName);
+
+export const getTagViewHeader = (tagName, {tags = []}) => {
+  const tagObj = find(nameFilter(tagName), tags);
   const tagView = [];
 
   tagView.push(heading(tagName, 2));
 
   if (tagObj && tagObj.description) {
-    tagView.push(`${tagObj.description}`)
+    tagView.push(`${tagObj.description}`);
   }
+
+  return tagView;
+};
+
+export const renderByTag = curry((renderEndpoint, swaggerDocument, groupedByTags, acc, tagName) => {
+  const tagView = getTagViewHeader(tagName, swaggerDocument);
 
   const rendered = reduce(renderEndpoint(swaggerDocument), [], groupedByTags[tagName]);
 
@@ -27,8 +35,8 @@ export const renderWithTags = curry((swaggerDocument, groupedByTags, acc, tagNam
   );
 });
 
-export function renderAPI(swaggerDocument, groupedByTags) {
-  return reduce(renderWithTags(swaggerDocument, groupedByTags), [], Object.keys(groupedByTags));
-}
+export const renderAPI = curry((renderByTag, swaggerDocument, groupedByTags) => {
+  return reduce(renderByTag(swaggerDocument, groupedByTags), [], Object.keys(groupedByTags));
+});
 
-export default renderAPI;
+export default renderAPI(renderByTag(renderEndpoint));

@@ -3,6 +3,13 @@
 import {
   map,
   reduce,
+  compose,
+  ifElse,
+  identity,
+  pipe,
+  curry,
+  join,
+  keys,
 } from 'ramda';
 
 import {li, link} from "./md";
@@ -12,29 +19,49 @@ export const transformToHashURL = name => '#' + name
   .replace(/[?*+\/\\.^-]/g, '')
   .replace(/\s|_/g, '-');
 
+
 export const getMenuLink = name => link(name, transformToHashURL(name));
 
-export function renderMenu({paths, definitions}, grouped) {
-  const routesPart = reduce((acc, tag) => {
-    const routes = reduce((acc, resource) => {
-      acc.push(li(getMenuLink(resource.summary)));
+export const concatLink = curry((acc, link) => `${acc}\n${link}`);
 
-      return acc;
-    }, [], grouped[tag]);
+export const addMenuLink = (acc, resource) => compose(
+  ifElse(
+    () => !!acc,
+    concatLink(acc),
+    identity
+  ),
+  li,
+  getMenuLink,
+  ({summary}) => summary
+)(resource);
+
+export const getDefinitionsLinks = pipe(
+  keys,
+  map(
+    compose(
+      li,
+      name => link(name, `#/definitions/${name}`),
+    )
+  ),
+  join('\n')
+);
+
+export function renderMenu({paths, definitions}, grouped) {
+  const routesLinks = reduce((acc, tag) => {
+    const routes = reduce(addMenuLink, '', grouped[tag]);
 
     acc.push(`Tag: ${getMenuLink(tag)}`);
-    acc.push(routes.join('\n'));
+    acc.push(routes);
 
     return acc;
   }, [], Object.keys(grouped));
 
-  const definitionsPart = map(name => li(link(name, `#/definitions/${name}`)), Object.keys(definitions)).join('\n');
+  const definitionsLinks = getDefinitionsLinks(definitions);
 
-  return [
-    ...routesPart,
+  return routesLinks.concat(
     getMenuLink(`Definitions`, '#definitions'),
-    definitionsPart
-  ];
+    definitionsLinks
+  );
 }
 
 export default renderMenu;

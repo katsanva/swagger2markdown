@@ -1,18 +1,17 @@
 'use strict';
 
-export default function transform({yaml, fs, render}, swagger, markdown, config) {
-    try {
-        const swaggerDocument = yaml.safeLoad(swagger);
+import yaml from 'js-yaml';
+import render from './render/index';
+import {curry} from 'ramda';
 
-        if (swaggerDocument.swagger !== '2.0') {
-            throw Error('Only swagger 2.0 is currently supported');
-        }
+export const transform = curry(({yaml, render}, swagger, config) => {
+  const swaggerDocument = yaml.safeLoad(swagger);
 
-        const md = render(swaggerDocument, config);
+  if (swaggerDocument.swagger !== '2.0') {
+    throw Error('Only swagger 2.0 is currently supported');
+  }
 
-        fs.writeFileSync(markdown, md);
-    } catch (e) {
-        console.error(e);
-        console.error(e.stack);
-    }
-};
+  return render(swaggerDocument, config);
+});
+
+export default transform({yaml, render});

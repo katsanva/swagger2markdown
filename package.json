@@ -19,7 +19,7 @@
     "prebuild:examples": "npm run build && npm run get:examples",
     "build:examples": "npm run transform:examples",
     "pretransform:examples": "npm run build",
-    "transform:examples": "babel-node src/index.js -s examples/gettyimages.json -m examples/gettyimages.md && node dist/index.js -s examples/petstore.json -m examples/petstore.md",
+    "transform:examples": "node dist/index.js -s examples/gettyimages.json -m examples/gettyimages.md && node dist/index.js -s examples/petstore.json -m examples/petstore.md",
     "preversion": "npm run transform:examples"
   },
   "publishConfig": {
@@ -68,6 +68,12 @@
   "jest": {
     "coverageDirectory": "./coverage/",
     "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "src/index.js"
+    ],
     "transform": {
       "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
     },

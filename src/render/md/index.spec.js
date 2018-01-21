@@ -72,7 +72,20 @@ test('link', () => {
   expect(result).toBe(expected);
 });
 
-test('link, no url provide', () => {
+test('link, with target', () => {
+  const name = 'foo';
+  const url = 'bla';
+  const expected = '<a href="bla" target="_blank" title="foo">foo</a>';
+  const options = {
+    target: '_blank'
+  };
+
+  const result = link(name, url, options);
+
+  expect(result).toBe(expected);
+});
+
+test('link, no url provided', () => {
   const name = 'foo';
   const url = '';
   const expected = '[foo](foo)';

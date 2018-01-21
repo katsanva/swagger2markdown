@@ -1,0 +1,54 @@
+import {renderObject, renderRef, renderRow} from "./mixins";
+
+test('mixins: renderRow', () => {
+  const name = 'name';
+  const type = 'type';
+  const description = 'description';
+  const expected = '|**name**|type|description|';
+  const result = renderRow(name, type, description);
+
+  expect(result).toBe(expected);
+});
+
+test('mixins: renderRow, no description', () => {
+  const name = 'name';
+  const type = 'type';
+  const expected = '|**name**|type||';
+
+  const result = renderRow(name, type);
+
+  expect(result).toBe(expected);
+});
+
+test('mixins: renderRow, no description, no type', () => {
+  const name = 'name';
+  const expected = '|**name**|||';
+
+  const result = renderRow(name);
+
+  expect(result).toBe(expected);
+});
+
+test('mixins: renderRef', () => {
+  const $ref = '#/definitions/Reference';
+  const expected = '|extends|[_Reference_](#/definitions/Reference)|Base response schema|';
+  const result = renderRef({$ref});
+
+  expect(result).toBe(expected);
+});
+
+test('mixins: renderObject', () => {
+  const propName = 'propName';
+  const properties = {
+    property1: {
+      type: 'type'
+    },
+    property2: {
+      type: 'type'
+    }
+  };
+  const expected = "|**propName**|||\n|`property1`|_type_||\n|`property2`|_type_||";
+  const result = renderObject(propName, properties);
+
+  expect(result).toBe(expected);
+});

@@ -1,12 +1,10 @@
 'use strict';
 
 import {
-  map,
   mapObjIndexed,
-  pipe,
   reduce,
   forEach,
-  curry,
+  pipe
 } from 'ramda';
 
 import {
@@ -22,26 +20,21 @@ import renderDefinitions from './definitions';
 export const getFlatPaths = (paths) => {
   const flat = [];
 
-  pipe(
-    Object.keys,
-    map(path => map(method => {
-        const definition = {
-          ...paths[path][method],
-          path,
-          method
-        };
+  mapObjIndexed((value, path) => mapObjIndexed((endpoint, method) => {
+    const definition = Object.assign(endpoint, {
+      path,
+      method
+    });
 
-        flat.push(definition)
-      }, Object.keys(paths[path])
-    )))(paths);
+    flat.push(definition)
+  }, value), paths);
 
   return flat;
 };
 
-export const groupRequestsByTags = curry((getFlatPaths, paths) => {
- const flat = getFlatPaths(paths);
-
-  return reduce((acc, definition) => {
+export const groupRequestsByTags = pipe(
+  getFlatPaths,
+  reduce((acc, definition) => {
     forEach(tag => {
       if (!acc[tag]) {
         acc[tag] = []
@@ -51,8 +44,8 @@ export const groupRequestsByTags = curry((getFlatPaths, paths) => {
     }, definition.tags || []);
 
     return acc;
-  }, {}, flat);
-});
+  }, {})
+);
 
 export const getBase = (document, {prependHeader}) => {
   const {
@@ -88,7 +81,7 @@ export default function renderDocument(document, config) {
 
   mapObjIndexed((value) => resolveRefs(definitions, value), definitions);
 
-  const groupedByTags = groupRequestsByTags(getFlatPaths, paths);
+  const groupedByTags = groupRequestsByTags(paths);
   const base = getBase(document, config);
 
   return base

@@ -85,6 +85,10 @@ export const getParametersTable = (parameters, path) => {
     parameters: ownParameters = []
   } = path;
 
+  if (!ownParameters.length) {
+    return '';
+  }
+
   return table(
     th(`Position`, `Name`, `Type`, `Description`),
     map(renderAnyParameter(renderParameter, parameters), ownParameters),

@@ -3,6 +3,10 @@
 import {
   map,
   curry,
+  compose,
+  pipe,
+  join,
+  keys,
 } from 'ramda';
 import {
   bold,
@@ -15,9 +19,9 @@ import renderArrayType from "./array-with-type";
 
 export const renderRow = (name, type = '', description = '') => tr(bold(name), type, escape(description));
 
-export const renderRef = ref => tr(
+export const renderRef = ({$ref}) => tr(
   `extends`,
-  getRefLink(ref),
+  getRefLink($ref),
   `Base response schema`
 );
 
@@ -26,9 +30,15 @@ export const renderObject = (propName, properties) => [
   ...renderObjectProps(properties)
 ].join('\n');
 
+export const renderArrayTypeWithRef = compose(
+  renderArrayType,
+  getRefLink,
+  ({$items}) => $items.$ref
+);
+
 export const renderArray = (propName, property) => {
   if (property.$items.$ref) {
-    return renderRow(propName, renderArrayType(getRefLink(property.$items.$ref)));
+    return renderRow(propName, renderArrayTypeWithRef(property));
   }
 
   if (property.items.type === 'object') {
@@ -64,13 +74,21 @@ export const renderProperty = curry((value, propName) => {
   );
 });
 
+export const renderProperties = value => pipe(
+  ({properties}) => properties,
+  keys,
+  map(renderProperty(value)),
+  join('\n')
+)(value);
+
 export default () => (value) => {
   if (value.$ref) {
-    return renderRef(value.$ref);
+    return renderRef(value);
   }
 
   if (value.properties) {
-    return map(renderProperty(value), Object.keys(value.properties))
-      .join('\n')
+    return renderProperties(value);
   }
+
+  return '';
 };

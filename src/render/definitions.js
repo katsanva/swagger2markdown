@@ -12,18 +12,18 @@ import resolveRefs from "./resolve-refs";
 import {italics, table, th} from "./md";
 import renderArrayType from "./array-with-type";
 
-export const renderDefinitionWithTable = (definitions, name, definitionWithResolvedRefs) => {
-  const definitionsTable = table(
+export const renderDefinitionWithTable = curry((definition, name) => {
+  const properties = table(
     th(`Name`, `Type`, `Description`),
-    renderObjectProps(definitionWithResolvedRefs.properties)
+    renderObjectProps(definition.properties)
   );
 
   return [
     `<h3 id='/definitions/${name}'>${name}</h3>`,
-    `${definitions[name].description || name}`,
-    definitionsTable
+    `${definition.description || name}`,
+    properties
   ];
-};
+});
 
 export const getType = (definition) => {
   if (definition.type === 'array') {
@@ -33,31 +33,39 @@ export const getType = (definition) => {
   return italics(definition.type);
 };
 
-export const renderDefinitionSimple = (definitions, name) => {
-  const type = getType(definitions[name]);
+export const renderDefinitionSimple = curry((definition, name) => {
+  const type = getType(definition);
 
   return [
     `<h3 id='/definitions/${name}'>${name}</h3>`,
-    `${definitions[name].description || name}`,
+    `${definition.description || name}`,
     `Type: ${type}`
   ]
+});
+
+export const getRenderer = definition => {
+  if (definition.type === 'object') {
+    return renderDefinitionWithTable(definition);
+  }
+
+  return renderDefinitionSimple(definition);
 };
 
 export const renderAnyDefinition = curry((definitions, name) => {
-  const definitionWithResolvedRefs = resolveRefs(definitions, definitions[name]);
+  const definition = resolveRefs(definitions, definitions[name]);
+  const renderer = getRenderer(definition);
 
-  if (definitionWithResolvedRefs.type === 'object') {
-    return renderDefinitionWithTable(definitions, name, definitionWithResolvedRefs);
-  }
-
-  return renderDefinitionSimple(definitions, name);
+  return renderer(name);
 });
+
+export const isTruthy = value => !!value;
+export const addValue = curry((render, acc, name) => acc.concat(render(name)));
 
 export const renderDefinitions = ({definitions}) => {
   return pipe(
     Object.keys,
-    reduce((acc, name) => acc.concat(renderAnyDefinition(definitions, name)), []),
-    filter(definition => !!definition),
+    reduce(addValue(renderAnyDefinition(definitions)), []),
+    filter(isTruthy),
   )(definitions);
 };
 
