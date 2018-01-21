@@ -6,31 +6,33 @@ import fs from 'fs';
 import transform from './transform';
 import {curry} from 'ramda';
 
+export const initYargs = (fs, yargs) => yargs
+  .usage('Usage: $0 -s [string] -m [string] -p [boolean]')
+  .option(
+    'swagger', {
+      alias: 's',
+      describe: 'Path to swagger file',
+      coerce: fs.readFileSync,
+    }
+  )
+  .option(
+    'markdown', {
+      alias: 'm',
+      describe: 'Path to output markdown file',
+    }
+  )
+  .option(
+    'prependHeader', {
+      alias: 'p',
+      describe: 'Should produce raw markdown or add render-related header',
+      'default': true
+    }
+  )
+  .boolean('prependHeader')
+  .demandOption(['swagger', 'markdown']);
+
 export const init = curry((fs, transform, console, yargs) => {
-  yargs
-    .usage('Usage: $0 -s [string] -m [string] -p [boolean]')
-    .option(
-      'swagger', {
-        alias: 's',
-        describe: 'Path to swagger file',
-        coerce: fs.readFileSync,
-      }
-    )
-    .option(
-      'markdown', {
-        alias: 'm',
-        describe: 'Path to output markdown file',
-      }
-    )
-    .option(
-      'prependHeader', {
-        alias: 'p',
-        describe: 'Should produce raw markdown or add render-related header',
-        'default': true
-      }
-    )
-    .boolean('prependHeader')
-    .demandOption(['swagger', 'markdown']);
+  initYargs(fs, yargs);
 
   const {
     swagger,
