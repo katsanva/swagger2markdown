@@ -60,3 +60,4 @@ typings/
 dist
 .idea
 .coverage
+*.iml
