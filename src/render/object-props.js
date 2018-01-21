@@ -41,6 +41,29 @@ export const renderArray = (property, $items, value) => {
   return getArrayItemRow(property, type)
 };
 
+export const getReference = (properties, property) => {
+  const referencePath = [
+    property,
+    '$ref',
+  ];
+  return view(
+    lensPath(referencePath),
+    properties
+  );
+};
+
+export const renderRefRow = (property, reference, description) => tr(
+  pre(property),
+  getRefLink(reference),
+  escape(description)
+);
+
+export const renderTypeRow = (property, type, description) => tr(
+  pre(property),
+  italics(type),
+  escape(description)
+);
+
 export const renderProp = curry((properties, $properties, property) => {
   const value = properties[property];
   const {
@@ -49,32 +72,17 @@ export const renderProp = curry((properties, $properties, property) => {
     $items,
   } = properties[property];
 
-  if (value.type === 'array') {
+  if (type === 'array') {
     return renderArray(property, $items, value);
   }
 
-  const referencePath = [
-    property,
-    '$ref',
-  ];
-  const reference = view(
-    lensPath(referencePath),
-    $properties
-  );
+  const reference = getReference($properties, property);
 
   if (reference) {
-    return tr(
-      pre(property),
-      getRefLink(reference),
-      escape(description)
-    );
+    return renderRefRow(property, reference, description);
   }
 
-  return tr(
-    pre(property),
-    italics(type),
-    escape(description)
-  );
+  return renderTypeRow(property, type, description);
 });
 
 export const _renderObjectProps = (properties = {}, $properties = {}) => map(renderProp(properties, $properties), Object.keys(properties));
