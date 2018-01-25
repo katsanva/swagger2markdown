@@ -1,4 +1,4 @@
-import {renderObject, renderRef, renderRow} from "./mixins";
+import {renderArray, renderArrayTypeWithRef, renderObject, renderRef, renderRow} from "./mixins";
 
 test('mixins: renderRow', () => {
   const name = 'name';
@@ -49,6 +49,83 @@ test('mixins: renderObject', () => {
   };
   const expected = "|**propName**|||\n|`property1`|_type_||\n|`property2`|_type_||";
   const result = renderObject(propName, properties);
+
+  expect(result).toBe(expected);
+});
+
+test('renderArrayTypeWithRef', () => {
+  const array = {
+    type: 'array',
+    $items: {
+      $ref: '#/definitions/foo'
+    }
+  };
+  const expected = '[&nbsp;[_foo_](#/definitions/foo)&nbsp;]';
+  const result = renderArrayTypeWithRef(array);
+
+  expect(result).toBe(expected);
+});
+
+test('renderArray, will render items ref', () => {
+  const propName = 'foo';
+  const property = {
+    $items: {
+      $ref: '#/definitions/bla'
+    }
+  };
+  const expected = '|**foo**|[&nbsp;[_bla_](#/definitions/bla)&nbsp;]||';
+  const result = renderArray(propName, property);
+
+  expect(result).toBe(expected);
+});
+
+test('renderArray, will render full items type', () => {
+  const propName = 'foo';
+  const property = {
+    $items: {},
+    items: {
+      type: 'object',
+      properties: {
+        foo: {
+          type: 'string',
+          description: 'bla'
+        }
+      }
+    }
+  };
+  const expected = '|**foo**: [] |[&nbsp;|`foo`|_string_|bla|&nbsp;]||';
+  const result = renderArray(propName, property);
+
+  expect(result).toBe(expected);
+});
+
+test('renderArray, will render array items type', () => {
+  const propName = 'foo';
+  const property = {
+    $items: {},
+    items: {
+      type: 'array',
+      items: {
+        type: 'string'
+      }
+    }
+  };
+  const expected = '|**foo**|[&nbsp;[&nbsp;string&nbsp;]&nbsp;]||';
+  const result = renderArray(propName, property);
+
+  expect(result).toBe(expected);
+});
+
+test('renderArray, will render array items type', () => {
+  const propName = 'foo';
+  const property = {
+    $items: {},
+    items: {
+      type: 'string',
+    }
+  };
+  const expected = '|**foo**|[&nbsp;string&nbsp;]||';
+  const result = renderArray(propName, property);
 
   expect(result).toBe(expected);
 });

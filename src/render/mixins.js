@@ -50,7 +50,7 @@ export const renderArray = (propName, property) => {
   }
 
   if (property.items.type === 'array') {
-    return renderRow(propName, renderArrayType(property.items.items.type), property.items.description);
+    return renderRow(propName, renderArrayType(renderArrayType(property.items.items.type)), property.items.description);
   }
 
   return renderRow(propName, renderArrayType(property.items.type), property.description);
