@@ -43,13 +43,15 @@ export const renderDefinitionSimple = curry((definition, name) => {
   ]
 });
 
-export const getRenderer = definition => {
+export const _getRenderer = curry((tableRenderer, simpleRenderer, definition) => {
   if (definition.type === 'object') {
-    return renderDefinitionWithTable(definition);
+    return tableRenderer(definition);
   }
 
-  return renderDefinitionSimple(definition);
-};
+  return simpleRenderer(definition);
+});
+
+const getRenderer = _getRenderer(renderDefinitionWithTable, renderDefinitionSimple);
 
 export const renderAnyDefinition = curry((definitions, name) => {
   const definition = resolveRefs(definitions, definitions[name]);
