@@ -60,7 +60,7 @@
     "js-yaml": "^3.10.0",
     "object-assign-deep": "0.0.4",
     "ramda": "^0.25.0",
-    "yargs": "^7.1.0"
+    "yargs": "^13.2.4"
   },
   "engines": {
     "node": ">=0.10"
